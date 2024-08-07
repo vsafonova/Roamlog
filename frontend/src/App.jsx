@@ -1,11 +1,11 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import HomePage from "./pages/HomePage";
+import StartPage from "./pages/Mobile/StartPage";
 
 export default function App() {
   return (
     <Router> 
       <Routes>
-        <Route path="/" element={<HomePage /> } />
+        <Route path="/" element={<StartPage/>} />
       </Routes>
     </Router>
   );
