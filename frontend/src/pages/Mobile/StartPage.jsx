@@ -1,4 +1,4 @@
-import Slider from "../../components/mobile/Slider";
+import Slider from "../../components/mobile/slider/Slider";
 
 export default function StartPage() {
   return (
