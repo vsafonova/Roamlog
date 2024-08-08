@@ -1,45 +1,35 @@
-export default function Slide({video, mainText}) {
-    return(
-        <div
-          className="relative float-left -mr-[100%] hidden w-full !transform-none bg-cover bg-center bg-no-repeat opacity-0 transition-opacity duration-[600ms] ease-in-out motion-reduce:transition-none"
-          data-twe-carousel-fade
-          data-twe-carousel-item
-          data-twe-carousel-active
-        >
-          <video autoPlay muted loop>
-            <source src={`/videos/${video}`} type="video/mp4" />
-          </video>
-          <div className="absolute bottom-0 left-0 right-0 top-0 h-full w-full overflow-hidden bg-fixed">
-            <div className="flex h-full items-end justify-center">
-              <div className="px-14 text-white">
-                <h2 className="text-lg font-semibold">
-                  {mainText}
-                </h2>
-                <div className="">
-                  <a
-                    type="button"
-                    className="mb-2 inline-block rounded border-2 border-white px-6 py-2 text-xs font-medium uppercase leading-tight text-white transition duration-150 ease-in-out hover:bg-black hover:bg-opacity-5 focus:outline-none focus:ring-0 md:mb-0"
-                    href="#!"
-                    role="button"
-                    data-twe-ripple-init
-                    data-twe-ripple-color="light"
-                  >
-                    Log In
-                  </a>
-                  <a
-                    type="button"
-                    className="inline-block rounded border-2 border-white px-6 py-2 text-xs font-medium uppercase leading-tight text-white transition duration-150 ease-in-out hover:bg-black hover:bg-opacity-5 focus:outline-none focus:ring-0"
-                    href="#!"
-                    role="button"
-                    data-twe-ripple-init
-                    data-twe-ripple-color="light"
-                  >
-                    Get Started
-                  </a>
-                </div>
-              </div>
-            </div>
+import { Typography, Button } from "@material-tailwind/react";
+
+export default function Slide({ video, text }) {
+  return (
+    <div className="relative h-full w-full">
+      <video autoPlay muted loop>
+        <source src={`/videos/${video}`} type="video/mp4" />
+      </video>
+      <div className="absolute inset-0 grid h-full w-full place-items-center">
+        <div className="mx-4 text-left">
+          <Typography
+            variant="h4"
+            color="white"
+            className="mt-96 mb-8 text-3xl md:text-4xl lg:text-5xl"
+          >
+            {text}
+          </Typography>
+          <div className="flex justify-end gap-2">
+            <Button
+              className="rounded-full"
+              size="lg"
+              color="white"
+              variant="text"
+            >
+              Log In
+            </Button>
+            <Button className="rounded-full" size="lg" color="white">
+              Get Started
+            </Button>
           </div>
         </div>
-    )
+      </div>
+    </div>
+  );
 }

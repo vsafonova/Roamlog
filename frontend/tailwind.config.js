@@ -1,8 +1,9 @@
-module.exports = {
-  content: [
-    "./src/**/*.{html,js}",
-    "./node_modules/tw-elements/js/**/*.js"
-  ],
-  plugins: [require("tw-elements/plugin.cjs")],
-  darkMode: "class"
-};
+const withMT = require("@material-tailwind/react/utils/withMT");
+ 
+module.exports = withMT({
+  content: ["./index.html", "./src/**/*.{vue,js,ts,jsx,tsx}"],
+  theme: {
+    extend: {},
+  },
+  plugins: [],
+});
