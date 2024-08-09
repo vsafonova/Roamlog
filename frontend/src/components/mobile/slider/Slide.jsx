@@ -1,4 +1,5 @@
 import { Typography, Button } from "@material-tailwind/react";
+import { Link } from "react-router-dom";
 
 export default function Slide({ video, text }) {
   return (
@@ -24,9 +25,11 @@ export default function Slide({ video, text }) {
             >
               Log In
             </Button>
-            <Button className="rounded-full" size="lg" color="white">
-              Get Started
-            </Button>
+            <Link to="/UserMap">
+              <Button className="rounded-full" size="lg" color="white">
+                Get Started
+              </Button>
+            </Link>
           </div>
         </div>
       </div>

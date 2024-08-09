@@ -17,7 +17,7 @@
     "@mui/icons-material": "^5.16.6",
     "@mui/material": "^5.16.6",
     "@types/mapbox-gl": "^3.4.0",
-    "i": "^0.3.7",
+    "axios": "^1.7.3",
     "mapbox-gl": "^3.5.2",
     "postcss": "^8.4.41",
     "react": "^18.3.1",

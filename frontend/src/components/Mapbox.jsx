@@ -28,10 +28,10 @@ export default function Mapbox() {
       initialViewState={{
         latitude: 46,
         longitude: 17,
-        zoom: 4,
+        zoom: 3,
       }}
-      style={{ width: 800, height: 600 }}
-      mapStyle="mapbox://styles/viktoriia-hy/clzins30u002l01qxavyx8ypm"
+      style={{ width: '100vw', height: '100vh' }}
+      mapStyle="mapbox://styles/viktoriia-hy/clzlsy9qn004801r0fku78ub4"
       mapboxAccessToken={MAPBOX_TOKEN}
     >
       {pins.map((p) => (
