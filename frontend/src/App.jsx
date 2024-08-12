@@ -1,6 +1,6 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import StartPage from "./pages/Mobile/StartPage";
-import Mapbox from "./components/Mapbox";
+import Mapbox from "./components/mapBox/Mapbox";
 
 export default function App() {
   return (
