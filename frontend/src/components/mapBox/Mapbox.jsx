@@ -79,7 +79,11 @@ export default function Mapbox() {
 
   const markAsVisited = (countryId) => {
     mapRef.current.setFeatureState(
-      { source: "country-boundaries", id: countryId },
+      {
+        source: "country-boundaries",
+        sourceLayer: "country_boundaries",
+        id: countryId,
+      },
       { visited: true, wishList: false }
     );
     setPopup(null);
@@ -87,7 +91,11 @@ export default function Mapbox() {
 
   const addToWishList = (countryId) => {
     mapRef.current.setFeatureState(
-      { source: "country-boundaries", id: countryId },
+      {
+        source: "country-boundaries",
+        sourceLayer: "country_boundaries",
+        id: countryId,
+      },
       { visited: false, wishList: true }
     );
     setPopup(null);
@@ -127,7 +135,7 @@ export default function Mapbox() {
       ],
     },
   };
-  
+
   return (
     <Map
       initialViewState={{
