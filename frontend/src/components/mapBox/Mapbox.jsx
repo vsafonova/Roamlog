@@ -35,7 +35,7 @@ export default function Mapbox() {
     if (features.length > 0) {
       const feature = features[0];
       const countryName = feature.properties.name_en || feature.properties.name; // Use the English name if available
-      
+
       setPopup({
         id: feature.id,
         longitude: event.lngLat.lng,
@@ -49,17 +49,37 @@ export default function Mapbox() {
         essential: true,
       });
 
+      // Reset the clicked state for all features
+      mapRef.current
+        .querySourceFeatures("country-boundaries", {
+          sourceLayer: "country_boundaries",
+        })
+        .forEach((f) => {
+          mapRef.current.setFeatureState(
+            {
+              source: "country-boundaries",
+              sourceLayer: "country_boundaries",
+              id: f.id,
+            },
+            { clicked: false }
+          );
+        });
+
+      // Set the clicked state for the clicked feature
       mapRef.current.setFeatureState(
-        { source: "country-boundaries",sourceLayer: "country_boundaries", id: feature.id },
+        {
+          source: "country-boundaries",
+          sourceLayer: "country_boundaries",
+          id: feature.id,
+        },
         { clicked: true }
       );
     }
   };
 
-
   const markAsVisited = (countryId) => {
     mapRef.current.setFeatureState(
-      { source: 'country-boundaries', id: countryId },
+      { source: "country-boundaries", id: countryId },
       { visited: true, wishList: false }
     );
     setPopup(null);
@@ -67,7 +87,7 @@ export default function Mapbox() {
 
   const addToWishList = (countryId) => {
     mapRef.current.setFeatureState(
-      { source: 'country-boundaries', id: countryId },
+      { source: "country-boundaries", id: countryId },
       { visited: false, wishList: true }
     );
     setPopup(null);
@@ -95,19 +115,19 @@ export default function Mapbox() {
     id: "country-boundaries-border",
     type: "line",
     source: "country-boundaries",
-    "source-layer": "country_boundaries",
+    "source-layer": "country_boundaries", // Specify the source layer
     paint: {
       "line-color": "#000000", // Border color
-      "line-width": 1,
+      "line-width": 2, // Increase the line width for better visibility
       "line-opacity": [
         "case",
         ["boolean", ["feature-state", "clicked"], false],
         1, // Opacity when clicked
-        0, // Default opacity (invisible)
+        0, // No opacity when not clicked
       ],
     },
   };
-
+  
   return (
     <Map
       initialViewState={{
