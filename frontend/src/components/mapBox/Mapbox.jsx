@@ -1,6 +1,6 @@
 import "mapbox-gl/dist/mapbox-gl.css";
-import Map, { Marker, Layer, Source, Popup } from "react-map-gl";
-import { Room } from "@mui/icons-material";
+import Map, { Layer, Source, Popup } from "react-map-gl";
+import StyleLoadedGuard from "./StyleLoadedGuard";
 import { useEffect, useState, useRef } from "react";
 import { Button } from "@material-tailwind/react";
 import { FlagIcon, HeartIcon } from "@heroicons/react/20/solid";
@@ -9,22 +9,9 @@ const MAPBOX_TOKEN =
   "pk.eyJ1IjoidmlrdG9yaWlhLWh5IiwiYSI6ImNsemlpM3JxODBhamEya3F5d2k5dGtwcDUifQ.70l4WJWTi7Sbp8iMaFvxLw"; // Set your mapbox token here
 
 export default function Mapbox() {
-  // const [pins, setPins] = useState([]);
   const [popup, setPopup] = useState(null);
   const mapRef = useRef();
-
-  // useEffect(() => {
-  //   const getPins = async () => {
-  //     try {
-  //       const res = await axios.get('/api/pins');
-  //       console.log(res);
-  //       setPins(res.data);
-  //     } catch (err) {
-  //       console.log(err);
-  //     }
-  //   };
-  //   getPins();
-  // }, []);
+  const [stylesLoaded, setStylesLoaded] = useState(false);
 
   const handleMapClick = (event) => {
     const features = mapRef.current.queryRenderedFeatures(event.point, {
@@ -33,7 +20,7 @@ export default function Mapbox() {
 
     if (features.length > 0) {
       const feature = features[0];
-      const countryName = feature.properties.name_en || feature.properties.name; // Use the English name if available
+      const countryName = feature.properties.name_en || feature.properties.name;
 
       setPopup({
         id: feature.id,
@@ -86,6 +73,7 @@ export default function Mapbox() {
       { visited: true, wishList: false }
     );
     setPopup(null);
+    console.log("Visited");
   };
 
   const addToWishList = (countryId) => {
@@ -98,6 +86,7 @@ export default function Mapbox() {
       { visited: false, wishList: true }
     );
     setPopup(null);
+    console.log("Added to wish list");
   };
 
   const countryLayer = {
@@ -122,9 +111,9 @@ export default function Mapbox() {
     id: "country-boundaries-border",
     type: "line",
     source: "country-boundaries",
-    "source-layer": "country_boundaries", 
+    "source-layer": "country_boundaries",
     paint: {
-      "line-color": "#000000", 
+      "line-color": "#000000",
       "line-width": 1,
       "line-opacity": [
         "case",
@@ -153,19 +142,19 @@ export default function Mapbox() {
       onClick={handleMapClick}
       ref={mapRef}
     >
-      {/* {pins.map((p) => (
-        <Marker longitude={p.long} latitude={p.lat}>
-          <Room />
-        </Marker>
-      ))} */}
-      <Source
-        id="country-boundaries"
-        type="vector"
-        url="mapbox://mapbox.country-boundaries-v1"
+      <StyleLoadedGuard
+        stylesLoaded={stylesLoaded}
+        setStylesLoaded={setStylesLoaded}
       >
-        <Layer {...countryLayer} />
-        <Layer {...borderLayer} />
-      </Source>
+        <Source
+          id="country-boundaries"
+          type="vector"
+          url="mapbox://mapbox.country-boundaries-v1"
+        >
+          <Layer {...countryLayer} />
+          <Layer {...borderLayer} />
+        </Source>
+      </StyleLoadedGuard>
       {popup && (
         <Popup
           longitude={popup.longitude}
