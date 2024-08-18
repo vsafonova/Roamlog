@@ -1,10 +1,9 @@
+import "mapbox-gl/dist/mapbox-gl.css";
 import Map, { Marker, Layer, Source, Popup } from "react-map-gl";
 import { Room } from "@mui/icons-material";
-import "mapbox-gl/dist/mapbox-gl.css";
 import { useEffect, useState, useRef } from "react";
 import { Button } from "@material-tailwind/react";
 import { FlagIcon, HeartIcon } from "@heroicons/react/20/solid";
-// import axios from "axios";
 
 const MAPBOX_TOKEN =
   "pk.eyJ1IjoidmlrdG9yaWlhLWh5IiwiYSI6ImNsemlpM3JxODBhamEya3F5d2k5dGtwcDUifQ.70l4WJWTi7Sbp8iMaFvxLw"; // Set your mapbox token here
@@ -123,15 +122,24 @@ export default function Mapbox() {
     id: "country-boundaries-border",
     type: "line",
     source: "country-boundaries",
-    "source-layer": "country_boundaries", // Specify the source layer
+    "source-layer": "country_boundaries", 
     paint: {
-      "line-color": "#000000", // Border color
-      "line-width": 2, // Increase the line width for better visibility
-      "line-opacity": [
+      "line-color": "#000000", 
+      "line-width": [
         "case",
         ["boolean", ["feature-state", "clicked"], false],
+        2,
+        0.1,
+      ], 
+      "line-opacity": [
+        "case",
+        ["boolean", ["feature-state", "visited"], false],
+        1, // Opacity when visited
+        ["boolean", ["feature-state", "wishList"], false],
+        1, // Opacity when on wish list
+        ["boolean", ["feature-state", "clicked"], false],
         1, // Opacity when clicked
-        0, // No opacity when not clicked
+        0.2, // No opacity when not clicked
       ],
     },
   };
@@ -141,7 +149,7 @@ export default function Mapbox() {
       initialViewState={{
         latitude: 46,
         longitude: 17,
-        zoom: 3,
+        zoom: 1,
       }}
       style={{ width: "100vw", height: "95vh" }}
       mapStyle="mapbox://styles/viktoriia-hy/clzlsy9qn004801r0fku78ub4"
