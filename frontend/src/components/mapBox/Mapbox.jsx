@@ -1,4 +1,3 @@
-import "mapbox-gl/dist/mapbox-gl.css";
 import Map, { Layer, Source, Popup } from "react-map-gl";
 import StyleLoadedGuard from "./StyleLoadedGuard";
 import { useEffect, useState, useRef } from "react";
@@ -73,7 +72,6 @@ export default function Mapbox() {
       { visited: true, wishList: false }
     );
     setPopup(null);
-    console.log("Visited");
   };
 
   const addToWishList = (countryId) => {
@@ -86,7 +84,6 @@ export default function Mapbox() {
       { visited: false, wishList: true }
     );
     setPopup(null);
-    console.log("Added to wish list");
   };
 
   const countryLayer = {
@@ -98,12 +95,12 @@ export default function Mapbox() {
       "fill-color": [
         "case",
         ["boolean", ["feature-state", "visited"], false],
-        "#ffA500", // Color when marked as visited
+        "#ffA500",
         ["boolean", ["feature-state", "wishList"], false],
-        "#00FF00", // Color when added to wish list
-        "#edecde", // Default color
+        "#00FF00", 
+        "rgba(0, 0, 0, 0)" // Transparent color when neither state is true
       ],
-      "fill-opacity": 1,
+      "fill-opacity": 0.5,
     },
   };
 
@@ -123,7 +120,7 @@ export default function Mapbox() {
         1, // Opacity when on wish list
         ["boolean", ["feature-state", "clicked"], false],
         1, // Opacity when clicked
-        0.05, // No opacity when not clicked
+        0 // No opacity when not clicked
       ],
     },
   };
@@ -136,7 +133,7 @@ export default function Mapbox() {
         zoom: 1,
       }}
       style={{ width: "100vw", height: "95vh" }}
-      mapStyle="mapbox://styles/viktoriia-hy/clzlsy9qn004801r0fku78ub4"
+      mapStyle="mapbox://styles/mapbox/streets-v9"
       mapboxAccessToken={MAPBOX_TOKEN}
       interactiveLayerIds={["country-boundaries"]}
       onClick={handleMapClick}

@@ -10,7 +10,6 @@ const StyleLoadedGuard = ({stylesLoaded, setStylesLoaded, children}) => {
 
       const onStyleLoad = () => {
         setStylesLoaded(true);
-        console.log("styles loaded");
       };
       map.on("style.load", onStyleLoad);
       if (map.isStyleLoaded()) {
