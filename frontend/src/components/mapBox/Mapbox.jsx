@@ -125,12 +125,7 @@ export default function Mapbox() {
     "source-layer": "country_boundaries", 
     paint: {
       "line-color": "#000000", 
-      "line-width": [
-        "case",
-        ["boolean", ["feature-state", "clicked"], false],
-        2,
-        0.1,
-      ], 
+      "line-width": 1,
       "line-opacity": [
         "case",
         ["boolean", ["feature-state", "visited"], false],
@@ -139,7 +134,7 @@ export default function Mapbox() {
         1, // Opacity when on wish list
         ["boolean", ["feature-state", "clicked"], false],
         1, // Opacity when clicked
-        0.2, // No opacity when not clicked
+        0.05, // No opacity when not clicked
       ],
     },
   };
