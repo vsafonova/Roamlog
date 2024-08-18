@@ -5,15 +5,15 @@ export default function Slider() {
   let slides = [
     {
       video: "Map.mp4",
-      text: "Build a map of countries you've visited and wish to visit"
+      text: "Build a map of countries you've been and wish to visit"
     }, 
     {
       video: "Cities.mp4",
-      text: "Mark over 18k cities, states & regions"
+      text: "Add over 18k territories, cities, regions, provinces and states"
     },
     {
       video: "Statistic.mp4",
-      text: "Track the percentage of each continent you've explored"
+      text: "Track your travel stats"
     }
   ]
 

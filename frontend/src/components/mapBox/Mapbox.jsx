@@ -143,7 +143,7 @@ export default function Mapbox() {
         longitude: 17,
         zoom: 3,
       }}
-      style={{ width: "100vw", height: "100vh" }}
+      style={{ width: "100vw", height: "95vh" }}
       mapStyle="mapbox://styles/viktoriia-hy/clzlsy9qn004801r0fku78ub4"
       mapboxAccessToken={MAPBOX_TOKEN}
       interactiveLayerIds={["country-boundaries"]}
