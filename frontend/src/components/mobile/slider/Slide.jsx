@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 export default function Slide({ video, text }) {
   return (
     <div className="relative h-full w-full">
-      <video autoPlay muted loop>
+      <video autoPlay muted loop preload="auto">
         <source src={`/videos/${video}`} type="video/mp4" />
       </video>
       <div className="absolute inset-0 grid h-full w-full place-items-center">
