@@ -1,12 +1,10 @@
 import { Typography, Button } from "@material-tailwind/react";
 import { Link } from "react-router-dom";
 
-export default function Slide({ video, text }) {
+export default function Slide({ gif, text, altText }) {
   return (
     <div className="relative h-full w-full">
-      <video autoPlay muted loop preload="auto">
-        <source src={`/videos/${video}`} type="video/mp4" />
-      </video>
+        <img src={`/images/${gif}`} alt={altText} />
       <div className="absolute inset-0 grid h-full w-full place-items-center">
         <div className="mx-4 text-left">
           <Typography
