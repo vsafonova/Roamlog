@@ -4,12 +4,6 @@ import StyleLoadedGuard from "./StyleLoadedGuard";
 import { useEffect, useState, useRef } from "react";
 import { Button } from "@material-tailwind/react";
 import { FlagIcon, HeartIcon } from "@heroicons/react/20/solid";
-import mapboxgl from "mapbox-gl";
-
-mapboxgl.workerUrl = new URL(
-  "mapbox-gl/dist/mapbox-gl-csp-worker.js",
-  import.meta.url
-).toString();
 
 const MAPBOX_TOKEN =
   "pk.eyJ1IjoidmlrdG9yaWlhLWh5IiwiYSI6ImNsemlpM3JxODBhamEya3F5d2k5dGtwcDUifQ.70l4WJWTi7Sbp8iMaFvxLw"; // Set your mapbox token here
@@ -37,7 +31,7 @@ export default function Mapbox() {
 
       mapRef.current.flyTo({
         center: [event.lngLat.lng, event.lngLat.lat],
-        zoom: 4.5,
+        zoom: 4,
         essential: true,
       });
 

@@ -9,4 +9,13 @@ export default defineConfig({
       '/api': 'http://localhost:8800',
     },
   },
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          mapboxgl: ['mapbox-gl']
+        }
+      }
+    }
+  }
 })
