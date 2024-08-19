@@ -1,10 +1,10 @@
 import Map, { Layer, Source, Popup } from "react-map-gl";
 import StyleLoadedGuard from "./StyleLoadedGuard";
 import { useState, useRef } from "react";
-import { Button } from "@material-tailwind/react";
+import Button from "./Button";
 import { FlagIcon, HeartIcon } from "@heroicons/react/20/solid";
 import { Sheet } from "react-modal-sheet";
-import iso3166 from 'iso-3166-1';
+import iso3166 from "iso-3166-1";
 import CountryFlag from "./CountryFlag";
 
 const MAPBOX_TOKEN =
@@ -23,7 +23,9 @@ export default function Mapbox() {
     if (features.length > 0) {
       const feature = features[0];
       const countryName = feature.properties.name_en || feature.properties.name;
-      const countryCode = iso3166.whereCountry(countryName)?.alpha2.toUpperCase();
+      const countryCode = iso3166
+        .whereCountry(countryName)
+        ?.alpha2.toUpperCase();
 
       setBottomSheet({
         id: feature.id,
@@ -158,37 +160,38 @@ export default function Mapbox() {
         </StyleLoadedGuard>
       </Map>
       {bottomSheet && (
-      <Sheet isOpen={bottomSheet} onClose={() => setBottomSheet(null)} longitude={bottomSheet.longitude}
-            latitude={bottomSheet.latitude} detent="content-height">
-        <Sheet.Container>
-          <Sheet.Header />
-          <Sheet.Content>
-            <div className="flex flex-col gap-4 px-4 pb-4">
-              <div className="flex gap-2">
-              {bottomSheet?.flagIcon && <CountryFlag countryCode={bottomSheet?.flagIcon} />}
-              <h3 className="font-bold">{bottomSheet.country}</h3>
+        <Sheet
+          isOpen={bottomSheet}
+          onClose={() => setBottomSheet(null)}
+          longitude={bottomSheet.longitude}
+          latitude={bottomSheet.latitude}
+          detent="content-height"
+        >
+          <Sheet.Container>
+            <Sheet.Header />
+            <Sheet.Content>
+              <div className="flex flex-col gap-4 px-4 pb-4">
+                <div className="flex gap-2">
+                  {bottomSheet?.flagIcon && (
+                    <CountryFlag countryCode={bottomSheet?.flagIcon} />
+                  )}
+                  <h3 className="font-bold">{bottomSheet.country}</h3>
+                </div>
+                <div className="flex flex-row gap-2">
+                  <Button onClick={() => markAsVisited(bottomSheet.id)}>
+                    <FlagIcon className="h-5 w-5" />
+                    Visited
+                  </Button>
+                  <Button onClick={() => addToWishList(bottomSheet.id)}>
+                    <HeartIcon className="h-5 w-5" />
+                    Want to visit
+                  </Button>
+                </div>
               </div>
-              <div className="flex flex-row gap-2">
-                <Button
-                  className="flex items-center gap-2 rounded-full w-1/2 h-14 bg-white text-gray-600"
-                  onClick={() => markAsVisited(bottomSheet.id)}
-                >
-                  <FlagIcon className="h-5 w-5" />
-                  Visited
-                </Button>
-                <Button
-                  className="flex items-center gap-2 rounded-full w-1/2 h-14 bg-white text-gray-600"
-                  onClick={() => addToWishList(bottomSheet.id)}
-                >
-                  <HeartIcon className="h-5 w-5" />
-                  Want to visit
-                </Button>
-              </div>
-            </div>
-          </Sheet.Content>
-        </Sheet.Container>
-        <Sheet.Backdrop />
-      </Sheet>
+            </Sheet.Content>
+          </Sheet.Container>
+          <Sheet.Backdrop />
+        </Sheet>
       )}
     </>
   );
