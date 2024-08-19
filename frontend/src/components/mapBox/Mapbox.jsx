@@ -4,9 +4,8 @@ import { useState, useRef } from "react";
 import { Button } from "@material-tailwind/react";
 import { FlagIcon, HeartIcon } from "@heroicons/react/20/solid";
 import { Sheet } from "react-modal-sheet";
-import 'country-flag-icons/react/1x1';
+import Icons from 'country-flag-icons/react/1x1';
 import iso3166 from 'iso-3166-1';
-import { hasFlag } from 'country-flag-icons'
 
 const MAPBOX_TOKEN =
   "pk.eyJ1IjoidmlrdG9yaWlhLWh5IiwiYSI6ImNsemlpM3JxODBhamEya3F5d2k5dGtwcDUifQ.70l4WJWTi7Sbp8iMaFvxLw"; // Set your mapbox token here
@@ -31,7 +30,7 @@ export default function Mapbox() {
         longitude: event.lngLat.lng,
         latitude: event.lngLat.lat,
         country: countryName,
-        flagIcon: countryCode ? `fi fi-${countryCode}` : null,
+        flagIcon: countryCode,
       });
 
       mapRef.current.flyTo({
@@ -129,6 +128,9 @@ export default function Mapbox() {
     },
   };
 
+  const Icon = Icons[bottomSheet?.flagIcon];
+  console.log(bottomSheet?.flagIcon);
+
   return (
     <>
       <Map
@@ -165,8 +167,8 @@ export default function Mapbox() {
           <Sheet.Header />
           <Sheet.Content>
             <div className="flex flex-col gap-4 px-4 pb-4">
-              <div>
-              {bottomSheet.flagIcon && <span className={bottomSheet.flagIcon}></span>}
+              <div className="flex gap-2">
+              <Icon className="h-5 w-10 rounded-xl" />
               <h3 className="font-bold">{bottomSheet.country}</h3>
               </div>
               <div className="flex flex-row gap-2">
