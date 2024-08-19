@@ -4,8 +4,8 @@ import { useState, useRef } from "react";
 import { Button } from "@material-tailwind/react";
 import { FlagIcon, HeartIcon } from "@heroicons/react/20/solid";
 import { Sheet } from "react-modal-sheet";
-import Icons from 'country-flag-icons/react/1x1';
 import iso3166 from 'iso-3166-1';
+import CountryFlag from "./CountryFlag";
 
 const MAPBOX_TOKEN =
   "pk.eyJ1IjoidmlrdG9yaWlhLWh5IiwiYSI6ImNsemlpM3JxODBhamEya3F5d2k5dGtwcDUifQ.70l4WJWTi7Sbp8iMaFvxLw"; // Set your mapbox token here
@@ -128,9 +128,6 @@ export default function Mapbox() {
     },
   };
 
-  const Icon = Icons[bottomSheet?.flagIcon];
-  console.log(bottomSheet?.flagIcon);
-
   return (
     <>
       <Map
@@ -168,7 +165,7 @@ export default function Mapbox() {
           <Sheet.Content>
             <div className="flex flex-col gap-4 px-4 pb-4">
               <div className="flex gap-2">
-              <Icon className="h-5 w-10 rounded-xl" />
+              {bottomSheet?.flagIcon && <CountryFlag countryCode={bottomSheet?.flagIcon} />}
               <h3 className="font-bold">{bottomSheet.country}</h3>
               </div>
               <div className="flex flex-row gap-2">
