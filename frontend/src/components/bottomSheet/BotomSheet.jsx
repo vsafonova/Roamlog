@@ -18,7 +18,7 @@ export default function BottomSheet({
 }) {
   return (
     <>
-      <CloseButton onClick={onClose} />
+      {isOpen && <CloseButton onClick={onClose} />}
       <Sheet
         isOpen={isOpen}
         onClose={onClose}

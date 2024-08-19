@@ -7,7 +7,13 @@ const MAPBOX_TOKEN =
   "pk.eyJ1IjoidmlrdG9yaWlhLWh5IiwiYSI6ImNsemlpM3JxODBhamEya3F5d2k5dGtwcDUifQ.70l4WJWTi7Sbp8iMaFvxLw"; // Set your mapbox token here
 
 export default function Mapbox() {
-  const [bottomSheet, setBottomSheet] = useState(null);
+  const [bottomSheet, setBottomSheet] = useState({
+    isOpened: false,
+    longitude: 0,
+    latitude: 0,
+    country: "",
+    flagIcon: "",
+  });
   const mapRef = useRef();
   const [stylesLoaded, setStylesLoaded] = useState(false);
 
@@ -27,6 +33,7 @@ export default function Mapbox() {
         latitude: event.lngLat.lat,
         country: countryName,
         flagIcon: countryCode,
+        isOpened: true,
       });
 
       mapRef.current.flyTo({
@@ -151,21 +158,20 @@ export default function Mapbox() {
           </Source>
         </StyleLoadedGuard>
       </Map>
-      {bottomSheet && (
-        <BottomSheet
-          onVisited={() => markAsVisited(bottomSheet.id)}
-          onAddWishList={() => addToWishList(bottomSheet.id)}
-          onClose={() => {
-            console.log("Close button clicked");
-            setBottomSheet(null);
-          }}
-          isOpen={!!bottomSheet}
-          longitude={bottomSheet.longitude}
-          latitude={bottomSheet.latitude}
-          country={bottomSheet.country}
-          countryCode={bottomSheet.flagIcon}
-        />
-      )}
+
+      <BottomSheet
+        onVisited={() => markAsVisited(bottomSheet.id)}
+        onAddWishList={() => addToWishList(bottomSheet.id)}
+        onClose={() => {
+          console.log("Close button clicked");
+          setBottomSheet({ ...bottomSheet, isOpened: false });
+        }}
+        isOpen={bottomSheet.isOpened}
+        longitude={bottomSheet.longitude}
+        latitude={bottomSheet.latitude}
+        country={bottomSheet.country}
+        countryCode={bottomSheet.flagIcon}
+      />
     </>
   );
 }
