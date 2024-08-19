@@ -31,7 +31,7 @@ export default function Mapbox() {
 
       mapRef.current.flyTo({
         center: [event.lngLat.lng, event.lngLat.lat],
-        zoom: 4,
+        zoom: 2,
         essential: true,
       });
 

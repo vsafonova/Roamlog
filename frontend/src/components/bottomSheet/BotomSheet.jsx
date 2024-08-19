@@ -3,6 +3,7 @@ import { Sheet } from "react-modal-sheet";
 import CountryFlag from "../CountryFlag";
 import PropTypes from "prop-types";
 import MarkCountryButton from "./MarkCountryButton";
+import "./customSheet.css";
 
 export default function BottomSheet({
   isOpen,
@@ -25,12 +26,12 @@ export default function BottomSheet({
       <Sheet.Container>
         <Sheet.Header />
         <Sheet.Content>
-          <div className="flex flex-col gap-4 px-4 pb-4">
-            <div className="flex gap-2">
+          <div className="flex flex-col gap-4 px-4 pb-10">
+            <div className="flex gap-4">
               {countryCode && <CountryFlag countryCode={countryCode} />}
               <h3 className="font-bold">{country}</h3>
             </div>
-            <div className="flex flex-row gap-2">
+            <div className="flex flex-row gap-4">
               <MarkCountryButton onClick={onVisited}>
                 <FlagIcon className="h-5 w-5" />
                 Visited
