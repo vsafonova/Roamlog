@@ -4,6 +4,7 @@ import CountryFlag from "../CountryFlag";
 import PropTypes from "prop-types";
 import MarkCountryButton from "./MarkCountryButton";
 import "./customSheet.css";
+import CloseButton from "../CloseButton";
 
 export default function BottomSheet({
   isOpen,
@@ -16,36 +17,39 @@ export default function BottomSheet({
   onAddWishList,
 }) {
   return (
-    <Sheet
-      isOpen={isOpen}
-      onClose={onClose}
-      longitude={longitude}
-      latitude={latitude}
-      detent="content-height"
-    >
-      <Sheet.Container>
-        <Sheet.Header />
-        <Sheet.Content>
-          <div className="flex flex-col gap-4 px-4 pb-10">
-            <div className="flex gap-4">
-              {countryCode && <CountryFlag countryCode={countryCode} />}
-              <h3 className="font-bold">{country}</h3>
+    <>
+      <CloseButton onClick={onClose} />
+      <Sheet
+        isOpen={isOpen}
+        onClose={onClose}
+        longitude={longitude}
+        latitude={latitude}
+        detent="content-height"
+      >
+        <Sheet.Container>
+          <Sheet.Header />
+          <Sheet.Content>
+            <div className="flex flex-col gap-4 px-4 pb-10">
+              <div className="flex gap-4">
+                {countryCode && <CountryFlag countryCode={countryCode} />}
+                <h3 className="font-bold">{country}</h3>
+              </div>
+              <div className="flex flex-row gap-4">
+                <MarkCountryButton onClick={onVisited}>
+                  <FlagIcon className="h-5 w-5" />
+                  Visited
+                </MarkCountryButton>
+                <MarkCountryButton onClick={onAddWishList}>
+                  <HeartIcon className="h-5 w-5" />
+                  Want to visit
+                </MarkCountryButton>
+              </div>
             </div>
-            <div className="flex flex-row gap-4">
-              <MarkCountryButton onClick={onVisited}>
-                <FlagIcon className="h-5 w-5" />
-                Visited
-              </MarkCountryButton>
-              <MarkCountryButton onClick={onAddWishList}>
-                <HeartIcon className="h-5 w-5" />
-                Want to visit
-              </MarkCountryButton>
-            </div>
-          </div>
-        </Sheet.Content>
-      </Sheet.Container>
-      <Sheet.Backdrop />
-    </Sheet>
+          </Sheet.Content>
+        </Sheet.Container>
+        <Sheet.Backdrop />
+      </Sheet>
+    </>
   );
 }
 
