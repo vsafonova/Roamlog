@@ -1,9 +1,7 @@
 import Map, { Layer, Source } from "react-map-gl";
 import StyleLoadedGuard from "./StyleLoadedGuard";
 import { useState, useRef } from "react";
-import iso3166 from "iso-3166-1";
 import BottomSheet from "../bottomSheet/BotomSheet";
-
 
 const MAPBOX_TOKEN =
   "pk.eyJ1IjoidmlrdG9yaWlhLWh5IiwiYSI6ImNsemlpM3JxODBhamEya3F5d2k5dGtwcDUifQ.70l4WJWTi7Sbp8iMaFvxLw"; // Set your mapbox token here
@@ -21,9 +19,7 @@ export default function Mapbox() {
     if (features.length > 0) {
       const feature = features[0];
       const countryName = feature.properties.name_en || feature.properties.name;
-      const countryCode = iso3166
-        .whereCountry(countryName)
-        ?.alpha2.toUpperCase();
+      const countryCode = feature.properties.iso_3166_1;
 
       setBottomSheet({
         id: feature.id,
