@@ -155,7 +155,10 @@ export default function Mapbox() {
         <BottomSheet
           onVisited={() => markAsVisited(bottomSheet.id)}
           onAddWishList={() => addToWishList(bottomSheet.id)}
-          onClose={() => setBottomSheet(null)}
+          onClose={() => {
+            console.log("Close button clicked");
+            setBottomSheet(null);
+          }}
           isOpen={!!bottomSheet}
           longitude={bottomSheet.longitude}
           latitude={bottomSheet.latitude}
