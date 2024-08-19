@@ -1,10 +1,11 @@
 import { Typography, Button } from "@material-tailwind/react";
 import { Link } from "react-router-dom";
+import PropTypes from "prop-types";
 
 export default function Slide({ gif, text, altText }) {
   return (
     <div className="relative h-full w-full">
-        <img src={`/images/${gif}`} alt={altText} />
+      <img src={`/images/${gif}`} alt={altText} />
       <div className="absolute inset-0 grid h-full w-full place-items-center">
         <div className="mx-4 text-left">
           <Typography
@@ -34,3 +35,9 @@ export default function Slide({ gif, text, altText }) {
     </div>
   );
 }
+
+Slide.propTypes = {
+  gif: PropTypes.string.isRequired,
+  text: PropTypes.string.isRequired,
+  altText: PropTypes.string.isRequired,
+};

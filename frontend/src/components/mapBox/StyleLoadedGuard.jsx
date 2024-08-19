@@ -1,8 +1,7 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useMap } from "react-map-gl";
 
-const StyleLoadedGuard = ({stylesLoaded, setStylesLoaded, children}) => {
-
+const StyleLoadedGuard = ({ stylesLoaded, setStylesLoaded, children }) => {
   const mapRef = useMap();
   useEffect(() => {
     if (mapRef.current) {
