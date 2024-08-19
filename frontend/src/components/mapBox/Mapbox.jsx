@@ -1,14 +1,18 @@
 import Map, { Layer, Source, Popup } from "react-map-gl";
 import StyleLoadedGuard from "./StyleLoadedGuard";
-import { useEffect, useState, useRef } from "react";
+import { useState, useRef } from "react";
 import { Button } from "@material-tailwind/react";
 import { FlagIcon, HeartIcon } from "@heroicons/react/20/solid";
+import { Sheet } from "react-modal-sheet";
+import 'country-flag-icons/react/1x1';
+import iso3166 from 'iso-3166-1';
+import { hasFlag } from 'country-flag-icons'
 
 const MAPBOX_TOKEN =
   "pk.eyJ1IjoidmlrdG9yaWlhLWh5IiwiYSI6ImNsemlpM3JxODBhamEya3F5d2k5dGtwcDUifQ.70l4WJWTi7Sbp8iMaFvxLw"; // Set your mapbox token here
 
 export default function Mapbox() {
-  const [popup, setPopup] = useState(null);
+  const [bottomSheet, setBottomSheet] = useState(null);
   const mapRef = useRef();
   const [stylesLoaded, setStylesLoaded] = useState(false);
 
@@ -20,12 +24,14 @@ export default function Mapbox() {
     if (features.length > 0) {
       const feature = features[0];
       const countryName = feature.properties.name_en || feature.properties.name;
+      const countryCode = iso3166.whereCountry(countryName)?.alpha2.toUpperCase();
 
-      setPopup({
+      setBottomSheet({
         id: feature.id,
         longitude: event.lngLat.lng,
         latitude: event.lngLat.lat,
         country: countryName,
+        flagIcon: countryCode ? `fi fi-${countryCode}` : null,
       });
 
       mapRef.current.flyTo({
@@ -71,7 +77,6 @@ export default function Mapbox() {
       },
       { visited: true, wishList: false }
     );
-    setPopup(null);
   };
 
   const addToWishList = (countryId) => {
@@ -83,7 +88,6 @@ export default function Mapbox() {
       },
       { visited: false, wishList: true }
     );
-    setPopup(null);
   };
 
   const countryLayer = {
@@ -97,8 +101,8 @@ export default function Mapbox() {
         ["boolean", ["feature-state", "visited"], false],
         "#ffA500",
         ["boolean", ["feature-state", "wishList"], false],
-        "#00FF00", 
-        "rgba(0, 0, 0, 0)" // Transparent color when neither state is true
+        "#00FF00",
+        "rgba(0, 0, 0, 0)", // Transparent color when neither state is true
       ],
       "fill-opacity": 0.5,
     },
@@ -120,66 +124,73 @@ export default function Mapbox() {
         1, // Opacity when on wish list
         ["boolean", ["feature-state", "clicked"], false],
         1, // Opacity when clicked
-        0 // No opacity when not clicked
+        0, // No opacity when not clicked
       ],
     },
   };
 
   return (
-    <Map
-      initialViewState={{
-        latitude: 46,
-        longitude: 17,
-        zoom: 1,
-      }}
-      style={{ width: "100vw", height: "95vh" }}
-      mapStyle="mapbox://styles/mapbox/streets-v9"
-      mapboxAccessToken={MAPBOX_TOKEN}
-      interactiveLayerIds={["country-boundaries"]}
-      onClick={handleMapClick}
-      ref={mapRef}
-    >
-      <StyleLoadedGuard
-        stylesLoaded={stylesLoaded}
-        setStylesLoaded={setStylesLoaded}
+    <>
+      <Map
+        initialViewState={{
+          latitude: 46,
+          longitude: 17,
+          zoom: 1,
+        }}
+        style={{ width: "100vw", height: "95vh" }}
+        mapStyle="mapbox://styles/mapbox/streets-v9"
+        mapboxAccessToken={MAPBOX_TOKEN}
+        interactiveLayerIds={["country-boundaries"]}
+        onClick={handleMapClick}
+        ref={mapRef}
       >
-        <Source
-          id="country-boundaries"
-          type="vector"
-          url="mapbox://mapbox.country-boundaries-v1"
+        <StyleLoadedGuard
+          stylesLoaded={stylesLoaded}
+          setStylesLoaded={setStylesLoaded}
         >
-          <Layer {...countryLayer} />
-          <Layer {...borderLayer} />
-        </Source>
-      </StyleLoadedGuard>
-      {popup && (
-        <Popup
-          longitude={popup.longitude}
-          latitude={popup.latitude}
-          onClose={() => setPopup(null)}
-          closeOnClick={false}
-        >
-          <div>
-            <h3 className="font-bold">{popup.country}</h3>
-            <div className="flex flex-col gap-2">
-              <Button
-                className="flex items-center gap-2 rounded-full"
-                onClick={() => markAsVisited(popup.id)}
-              >
-                <FlagIcon className="h-5 w-5" />
-                Visited
-              </Button>
-              <Button
-                className="flex items-center gap-2 rounded-full"
-                onClick={() => addToWishList(popup.id)}
-              >
-                <HeartIcon className="h-5 w-5" />
-                Want to visit
-              </Button>
+          <Source
+            id="country-boundaries"
+            type="vector"
+            url="mapbox://mapbox.country-boundaries-v1"
+          >
+            <Layer {...countryLayer} />
+            <Layer {...borderLayer} />
+          </Source>
+        </StyleLoadedGuard>
+      </Map>
+      {bottomSheet && (
+      <Sheet isOpen={bottomSheet} onClose={() => setBottomSheet(null)} longitude={bottomSheet.longitude}
+            latitude={bottomSheet.latitude} detent="content-height">
+        <Sheet.Container>
+          <Sheet.Header />
+          <Sheet.Content>
+            <div className="flex flex-col gap-4 px-4 pb-4">
+              <div>
+              {bottomSheet.flagIcon && <span className={bottomSheet.flagIcon}></span>}
+              <h3 className="font-bold">{bottomSheet.country}</h3>
+              </div>
+              <div className="flex flex-row gap-2">
+                <Button
+                  className="flex items-center gap-2 rounded-full w-1/2 h-14 bg-white text-gray-600"
+                  onClick={() => markAsVisited(bottomSheet.id)}
+                >
+                  <FlagIcon className="h-5 w-5" />
+                  Visited
+                </Button>
+                <Button
+                  className="flex items-center gap-2 rounded-full w-1/2 h-14 bg-white text-gray-600"
+                  onClick={() => addToWishList(bottomSheet.id)}
+                >
+                  <HeartIcon className="h-5 w-5" />
+                  Want to visit
+                </Button>
+              </div>
             </div>
-          </div>
-        </Popup>
+          </Sheet.Content>
+        </Sheet.Container>
+        <Sheet.Backdrop />
+      </Sheet>
       )}
-    </Map>
+    </>
   );
 }
