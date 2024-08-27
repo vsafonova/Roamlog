@@ -21,7 +21,7 @@ export default function Slider() {
   ];
 
   return (
-    <Carousel transition={{ duration: 1 }}>
+    <Carousel transition={{ duration: 1 }} className="overflow-y-hidden">
       {slides.map(({ gif, text, altText }) => (
         <Slide gif={gif} text={text} altText={altText} key={text} />
       ))}
