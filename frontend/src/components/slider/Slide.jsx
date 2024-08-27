@@ -4,14 +4,14 @@ import PropTypes from "prop-types";
 
 export default function Slide({ gif, text, altText }) {
   return (
-    <div className="relative overflow-y-hidden">
+    <div className="relative">
       <img src={`/images/${gif}`} alt={altText} />
-      <div className="absolute inset-0 grid h-full w-full place-items-center">
+      <div className="absolute inset-0 h-screen grid place-items-center">
         <div className="mx-4 text-left">
           <Typography
             variant="h4"
             color="white"
-            className="mt-96 mb-8 text-3xl md:text-4xl lg:text-5xl"
+            className="mt-56 mb-8 text-3xl md:text-4xl lg:text-5xl"
           >
             {text}
           </Typography>
