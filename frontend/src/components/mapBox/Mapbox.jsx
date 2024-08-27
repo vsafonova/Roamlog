@@ -13,7 +13,10 @@ export default function Mapbox() {
     latitude: 0,
     country: "",
     flagIcon: "",
+    visited: false,
+    wishListed: false,
   });
+
   const mapRef = useRef();
   const [stylesLoaded, setStylesLoaded] = useState(false);
 
@@ -51,6 +54,8 @@ export default function Mapbox() {
         country: countryName,
         flagIcon: countryCode,
         isOpened: true,
+        visited: feature.state.visited,
+        wishListed: feature.state.wishListed,
       });
 
       mapRef.current.flyTo({
@@ -72,26 +77,40 @@ export default function Mapbox() {
     }
   };
 
-  const markAsVisited = (countryId) => {
+  const markCountry = (countryId, visited, wishListed) => {
     mapRef.current.setFeatureState(
       {
         source: "country-boundaries",
         sourceLayer: "country_boundaries",
         id: countryId,
       },
-      { visited: true, wishList: false }
+      { visited: visited, wishList: wishListed }
     );
+    setBottomSheet((bottomSheet) => ({ ...bottomSheet, visited, wishListed }));
+  };
+
+  const setVisited = (countryId, visited) => {
+    markCountry(countryId, visited, false);
+  };
+
+  const setWishList = (countryId, wishList) => {
+    markCountry(countryId, false, wishList);
+  };
+
+  const markAsVisited = (countryId) => {
+    setVisited(countryId, true);
+  };
+
+  const markAsNotVisited = (countryId) => {
+    setVisited(countryId, false);
   };
 
   const addToWishList = (countryId) => {
-    mapRef.current.setFeatureState(
-      {
-        source: "country-boundaries",
-        sourceLayer: "country_boundaries",
-        id: countryId,
-      },
-      { visited: false, wishList: true }
-    );
+    setWishList(countryId, true);
+  };
+
+  const removeFromWishList = (countryId) => {
+    setWishList(countryId, false);
   };
 
   const countryLayer = {
@@ -165,6 +184,8 @@ export default function Mapbox() {
       <BottomSheet
         onVisited={() => markAsVisited(bottomSheet.id)}
         onAddWishList={() => addToWishList(bottomSheet.id)}
+        removeVisited={() => markAsNotVisited(bottomSheet.id)}
+        removeWishList={() => removeFromWishList(bottomSheet.id)}
         onClose={() => {
           console.log("Close button clicked");
           setBottomSheet({ ...bottomSheet, isOpened: false });
@@ -175,6 +196,8 @@ export default function Mapbox() {
         latitude={bottomSheet.latitude}
         country={bottomSheet.country}
         countryCode={bottomSheet.flagIcon}
+        visited={bottomSheet.visited}
+        wishListed={bottomSheet.wishListed}
       />
     </>
   );

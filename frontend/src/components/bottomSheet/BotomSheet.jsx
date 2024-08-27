@@ -15,6 +15,10 @@ export default function BottomSheet({
   country,
   onVisited,
   onAddWishList,
+  visited,
+  wishListed,
+  removeVisited,
+  removeWishList,
 }) {
   return (
     <>
@@ -35,11 +39,15 @@ export default function BottomSheet({
                 <h3 className="font-bold">{country}</h3>
               </div>
               <div className="flex flex-row gap-4">
-                <MarkCountryButton onClick={onVisited}>
+                <MarkCountryButton
+                  onClick={visited ? removeVisited : onVisited}
+                >
                   <FlagIcon className="h-5 w-5" />
                   Visited
                 </MarkCountryButton>
-                <MarkCountryButton onClick={onAddWishList}>
+                <MarkCountryButton
+                  onClick={wishListed ? removeWishList : onAddWishList}
+                >
                   <HeartIcon className="h-5 w-5" />
                   Want to visit
                 </MarkCountryButton>
@@ -62,4 +70,8 @@ BottomSheet.propTypes = {
   country: PropTypes.string.isRequired,
   onVisited: PropTypes.func.isRequired,
   onAddWishList: PropTypes.func.isRequired,
+  visited: PropTypes.bool,
+  wishListed: PropTypes.bool,
+  removeVisited: PropTypes.func.isRequired,
+  removeWishList: PropTypes.func.isRequired,
 };
