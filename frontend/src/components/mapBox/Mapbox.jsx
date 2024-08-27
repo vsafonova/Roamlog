@@ -17,6 +17,23 @@ export default function Mapbox() {
   const mapRef = useRef();
   const [stylesLoaded, setStylesLoaded] = useState(false);
 
+  function unselectCountries() {
+    mapRef.current
+      .querySourceFeatures("country-boundaries", {
+        sourceLayer: "country_boundaries",
+      })
+      .forEach((f) => {
+        mapRef.current.setFeatureState(
+          {
+            source: "country-boundaries",
+            sourceLayer: "country_boundaries",
+            id: f.id,
+          },
+          { clicked: false }
+        );
+      });
+  }
+
   const handleMapClick = (event) => {
     const features = mapRef.current.queryRenderedFeatures(event.point, {
       layers: ["country-boundaries"],
@@ -42,20 +59,7 @@ export default function Mapbox() {
         essential: true,
       });
 
-      mapRef.current
-        .querySourceFeatures("country-boundaries", {
-          sourceLayer: "country_boundaries",
-        })
-        .forEach((f) => {
-          mapRef.current.setFeatureState(
-            {
-              source: "country-boundaries",
-              sourceLayer: "country_boundaries",
-              id: f.id,
-            },
-            { clicked: false }
-          );
-        });
+      unselectCountries();
 
       mapRef.current.setFeatureState(
         {
@@ -164,6 +168,7 @@ export default function Mapbox() {
         onClose={() => {
           console.log("Close button clicked");
           setBottomSheet({ ...bottomSheet, isOpened: false });
+          unselectCountries();
         }}
         isOpen={bottomSheet.isOpened}
         longitude={bottomSheet.longitude}
