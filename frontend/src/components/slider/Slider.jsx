@@ -8,14 +8,14 @@ export default function Slider() {
       text: "Build a map of countries you've been and wish to visit",
       altText: "World map with colored countries by user",
     },
-    {
-      gif: "Cities.gif",
-      text: "Add over 18k territories, cities, regions, provinces and states",
-      altText: "Country map with cities and territories marked by pins",
-    },
+    // {
+    //   gif: "Cities.gif",
+    //   text: "Mark over 18k cities, states & regions",
+    //   altText: "Country map with cities and territories marked by pins",
+    // },
     {
       gif: "Statistics.gif",
-      text: "Track your travel stats",
+      text: "Track your travels for personalized insights and inspiration",
       altText: "User's travel statistics with percentage of countries visited",
     },
   ];

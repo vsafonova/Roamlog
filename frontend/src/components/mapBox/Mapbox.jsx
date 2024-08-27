@@ -158,7 +158,6 @@ export default function Mapbox() {
           </Source>
         </StyleLoadedGuard>
       </Map>
-
       <BottomSheet
         onVisited={() => markAsVisited(bottomSheet.id)}
         onAddWishList={() => addToWishList(bottomSheet.id)}
