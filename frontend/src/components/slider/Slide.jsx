@@ -8,7 +8,7 @@ export default function Slide({ gif, text, altText }) {
       <img
         src={`/images/${gif}`}
         alt={altText}
-        className="h-screen w-full object-cover overflow-y-hidden"
+        className="h-full w-full object-cover overflow-y-hidden"
       />
       <div className="absolute inset-0 grid h-full w-full place-items-center">
         <div className="mx-4 text-left">
