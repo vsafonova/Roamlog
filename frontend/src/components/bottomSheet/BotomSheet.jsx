@@ -2,9 +2,9 @@ import { FlagIcon, HeartIcon } from "@heroicons/react/20/solid";
 import { Sheet } from "react-modal-sheet";
 import CountryFlag from "../CountryFlag";
 import PropTypes from "prop-types";
-import MarkCountryButton from "./MarkCountryButton";
+import MarkCountryButton from "../MarkCountryButton";
 import "./customSheet.css";
-import CloseButton from "../CloseButton";
+import CloseButton from "./CloseButton";
 
 export default function BottomSheet({
   isOpen,

@@ -1,7 +1,9 @@
-import Map, { Layer, Source } from "react-map-gl";
+import Map, { Layer, Source, GeolocateControl } from "react-map-gl";
 import StyleLoadedGuard from "./StyleLoadedGuard";
 import { useState, useRef } from "react";
 import BottomSheet from "../bottomSheet/BotomSheet";
+import AddCountryButton from "./AddCountryButton";
+import SearchBottomSheet from "../countryList/SearchBottomSheet";
 
 const MAPBOX_TOKEN =
   "pk.eyJ1IjoidmlrdG9yaWlhLWh5IiwiYSI6ImNsemlpM3JxODBhamEya3F5d2k5dGtwcDUifQ.70l4WJWTi7Sbp8iMaFvxLw"; // Set your mapbox token here
@@ -16,20 +18,26 @@ export default function Mapbox() {
     visited: false,
     wishListed: false,
   });
+  const [searchBottomSheet, setSearchBottomSheet] = useState({
+    isOpened: false,
+  });
 
   const mapRef = useRef();
   const [stylesLoaded, setStylesLoaded] = useState(false);
 
+  const source = "country-boundaries";
+  const sourceLayer = "country_boundaries";
+
   function unselectCountries() {
     mapRef.current
-      .querySourceFeatures("country-boundaries", {
-        sourceLayer: "country_boundaries",
+      .querySourceFeatures(source, {
+        sourceLayer: sourceLayer,
       })
       .forEach((f) => {
         mapRef.current.setFeatureState(
           {
-            source: "country-boundaries",
-            sourceLayer: "country_boundaries",
+            source: source,
+            sourceLayer: sourceLayer,
             id: f.id,
           },
           { clicked: false }
@@ -37,9 +45,13 @@ export default function Mapbox() {
       });
   }
 
+  const handleAddButtonClick = () => {
+    setSearchBottomSheet({ isOpened: true });
+  };
+
   const handleMapClick = (event) => {
     const features = mapRef.current.queryRenderedFeatures(event.point, {
-      layers: ["country-boundaries"],
+      layers: [source],
     });
 
     if (features.length > 0) {
@@ -68,8 +80,8 @@ export default function Mapbox() {
 
       mapRef.current.setFeatureState(
         {
-          source: "country-boundaries",
-          sourceLayer: "country_boundaries",
+          source: source,
+          sourceLayer: sourceLayer,
           id: feature.id,
         },
         { clicked: true }
@@ -80,8 +92,8 @@ export default function Mapbox() {
   const markCountry = (countryId, visited, wishListed) => {
     mapRef.current.setFeatureState(
       {
-        source: "country-boundaries",
-        sourceLayer: "country_boundaries",
+        source: source,
+        sourceLayer: sourceLayer,
         id: countryId,
       },
       { visited: visited, wishList: wishListed }
@@ -116,8 +128,8 @@ export default function Mapbox() {
   const countryLayer = {
     id: "country-boundaries",
     type: "fill",
-    source: "country-boundaries",
-    "source-layer": "country_boundaries",
+    source: source,
+    "source-layer": sourceLayer,
     paint: {
       "fill-color": [
         "case",
@@ -134,8 +146,8 @@ export default function Mapbox() {
   const borderLayer = {
     id: "country-boundaries-border",
     type: "line",
-    source: "country-boundaries",
-    "source-layer": "country_boundaries",
+    source: source,
+    "source-layer": sourceLayer,
     paint: {
       "line-color": "#000000",
       "line-width": 1,
@@ -166,13 +178,17 @@ export default function Mapbox() {
         interactiveLayerIds={["country-boundaries"]}
         onClick={handleMapClick}
         ref={mapRef}
+        logoPosition="bottom-right"
+        attributionControl={false}
       >
+        <GeolocateControl position="bottom-left" />
+        <AddCountryButton onClick={handleAddButtonClick} />
         <StyleLoadedGuard
           stylesLoaded={stylesLoaded}
           setStylesLoaded={setStylesLoaded}
         >
           <Source
-            id="country-boundaries"
+            id={source}
             type="vector"
             url="mapbox://mapbox.country-boundaries-v1"
           >
@@ -198,6 +214,15 @@ export default function Mapbox() {
         countryCode={bottomSheet.flagIcon}
         visited={bottomSheet.visited}
         wishListed={bottomSheet.wishListed}
+      />
+      <SearchBottomSheet
+        isOpen={searchBottomSheet.isOpened}
+        onClose={() => {
+          setSearchBottomSheet({ ...searchBottomSheet, isOpened: false });
+        }}
+        source={source}
+        mapRef={mapRef.current}
+        sourceLayer={sourceLayer}
       />
     </>
   );
