@@ -15,7 +15,7 @@ export default function SearchBottomSheet({
       <Sheet.Container>
         <Sheet.Header />
         <Sheet.Content>
-          <Sheet.Scroller draggableAt="both">
+          <Sheet.Scroller draggableAt="top">
             <CountryList
               source={source}
               mapRef={mapRef}
