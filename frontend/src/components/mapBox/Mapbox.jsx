@@ -1,6 +1,6 @@
 import Map, { Layer, Source, GeolocateControl } from "react-map-gl";
 import StyleLoadedGuard from "./StyleLoadedGuard";
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import BottomSheet from "../bottomSheet/BotomSheet";
 import AddCountryButton from "./AddCountryButton";
 import SearchBottomSheet from "../countryList/SearchBottomSheet";
@@ -24,6 +24,24 @@ export default function Mapbox() {
 
   const mapRef = useRef();
   const [stylesLoaded, setStylesLoaded] = useState(false);
+
+  const [mapHeight, setMapHeight] = useState({
+    height: "100vh",
+    width: "100vw",
+  });
+  const updateMapStyle = () => {
+    if (window.innerWidth <= 768) {
+      setMapHeight({ height: "68.5vh", width: "100vw" });
+    } else {
+      setMapHeight({ height: "100vh", width: "100vw" });
+    }
+  };
+
+  useEffect(() => {
+    updateMapStyle();
+    window.addEventListener("resize", updateMapStyle);
+    return () => window.removeEventListener("resize", updateMapStyle);
+  }, []);
 
   const source = "country-boundaries";
   const sourceLayer = "country_boundaries";
@@ -172,7 +190,7 @@ export default function Mapbox() {
           longitude: 17,
           zoom: 1,
         }}
-        style={{ height: "100vh", width: "100vw" }}
+        style={mapHeight}
         mapStyle="mapbox://styles/mapbox/streets-v9"
         mapboxAccessToken={MAPBOX_TOKEN}
         interactiveLayerIds={["country-boundaries"]}
