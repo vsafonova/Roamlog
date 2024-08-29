@@ -92,7 +92,7 @@ export default function Mapbox() {
 
     mapRef.current.flyTo({
       center: [center.lng, center.lat],
-      zoom: 2,
+      zoom: 4,
       essential: true,
     });
 
