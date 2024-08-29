@@ -31,7 +31,7 @@ export default function Mapbox() {
   });
   const updateMapStyle = () => {
     if (window.innerWidth <= 768) {
-      setMapHeight({ height: "68.5vh", width: "100vw" });
+      setMapHeight({ height: "100vh", width: "100vw" });
     } else {
       setMapHeight({ height: "100vh", width: "100vw" });
     }
