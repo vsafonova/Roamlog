@@ -9,6 +9,7 @@ export default function SearchBottomSheet({
   source,
   mapRef,
   sourceLayer,
+  onSelectCountry,
 }) {
   return (
     <Sheet isOpen={isOpen} onClose={onClose}>
@@ -20,6 +21,7 @@ export default function SearchBottomSheet({
               source={source}
               mapRef={mapRef}
               sourceLayer={sourceLayer}
+              onSelectCountry={onSelectCountry}
             />
           </Sheet.Scroller>
         </Sheet.Content>
@@ -35,4 +37,5 @@ SearchBottomSheet.propTypes = {
   source: PropTypes.string.isRequired,
   mapRef: PropTypes.object,
   sourceLayer: PropTypes.string.isRequired,
+  onSelectCountry: PropTypes.func.isRequired,
 };

@@ -6,7 +6,7 @@ export default function CountryFlag({ countryCode }) {
   if (!Icon) {
     return null;
   }
-  return <Icon className="h-5 w-10 rounded" />;
+  return <Icon className="h-5 w-7" />;
 }
 
 CountryFlag.propTypes = {

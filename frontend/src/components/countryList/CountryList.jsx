@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
-import { FlagIcon, HeartIcon } from "@heroicons/react/20/solid";
+// import { FlagIcon, HeartIcon } from "@heroicons/react/20/solid";
 import CountryFlag from "../CountryFlag";
-import MarkCountryButton from "../MarkCountryButton";
+// import MarkCountryButton from "../MarkCountryButton";
 
 function getCountries(mapRef, source, sourceLayer) {
   const features = mapRef.querySourceFeatures(source, {
@@ -31,42 +31,39 @@ function getCountries(mapRef, source, sourceLayer) {
 }
 
 export default function CountryList({
-  onVisited,
-  onAddWishList,
-  removeVisited,
-  removeWishList,
+  // onVisited,
+  // onAddWishList,
+  // removeVisited,
+  // removeWishList,
   mapRef,
   source,
   sourceLayer,
+  onSelectCountry,
 }) {
   const countries = getCountries(mapRef, source, sourceLayer);
   return (
-    <div className="px-4">
-      <li className="flex justify-between">
-        <div className="flex flex-col gap-2">
-          {countries.map((feature) => {
-            const countryName = feature.properties.name_en;
-            const countryCode = feature.properties.iso_3166_1;
-            return (
-              <div key={countryName}>
-                <CountryFlag countryCode={countryCode} />
-                <h3>{countryName}</h3>
-              </div>
-            );
-          })}
-        </div>
-        {/* <div className="flex gap-2">
-          <MarkCountryButton onClick={visited ? removeVisited : onVisited}>
-            <FlagIcon className="h-5 w-5" />
-          </MarkCountryButton>
-          <MarkCountryButton
-            onClick={wishListed ? removeWishList : onAddWishList}
+    <ul className="px-4">
+      {countries.map((feature) => {
+        const countryName = feature.properties.name_en;
+        const countryCode = feature.properties.iso_3166_1;
+        return (
+          <li
+            onClick={() => onSelectCountry(feature)}
+            key={countryName}
+            className="flex justify-between cursor-pointer hover:bg-gray-100"
           >
-            <HeartIcon className="h-5 w-5" />
-          </MarkCountryButton>
-        </div> */}
-      </li>
-    </div>
+            <div className="flex items-center gap-4 p-2">
+              <CountryFlag countryCode={countryCode} />
+              <h3>{countryName}</h3>
+            </div>
+            <div className="flex gap-2">
+              <button> Visited</button>
+              <button> WishList</button>
+            </div>
+          </li>
+        );
+      })}
+    </ul>
   );
 }
 
@@ -80,4 +77,5 @@ CountryList.propTypes = {
   mapRef: PropTypes.object,
   source: PropTypes.string.isRequired,
   sourceLayer: PropTypes.string.isRequired,
+  onSelectCountry: PropTypes.func.isRequired,
 };

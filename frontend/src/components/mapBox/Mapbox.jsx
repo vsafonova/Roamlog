@@ -4,6 +4,7 @@ import { useState, useRef, useEffect } from "react";
 import BottomSheet from "../bottomSheet/BotomSheet";
 import AddCountryButton from "./AddCountryButton";
 import SearchBottomSheet from "../countryList/SearchBottomSheet";
+import * as turf from "@turf/turf";
 
 const MAPBOX_TOKEN =
   "pk.eyJ1IjoidmlrdG9yaWlhLWh5IiwiYSI6ImNsemlpM3JxODBhamEya3F5d2k5dGtwcDUifQ.70l4WJWTi7Sbp8iMaFvxLw"; // Set your mapbox token here
@@ -67,6 +68,46 @@ export default function Mapbox() {
     setSearchBottomSheet({ isOpened: true });
   };
 
+  function getCountryCenter(feature) {
+    const center = turf.center(feature.geometry);
+    const coordinates = center.geometry.coordinates;
+    return { lng: coordinates[0], lat: coordinates[1] };
+  }
+
+  function selectCountry(feature) {
+    const center = getCountryCenter(feature);
+    const countryName = feature.properties.name_en || feature.properties.name;
+    const countryCode = feature.properties.iso_3166_1;
+
+    setBottomSheet({
+      id: feature.id,
+      longitude: center.lng,
+      latitude: center.lat,
+      country: countryName,
+      flagIcon: countryCode,
+      isOpened: true,
+      visited: feature.state?.visited,
+      wishListed: feature.state?.wishListed,
+    });
+
+    mapRef.current.flyTo({
+      center: [center.lng, center.lat],
+      zoom: 2,
+      essential: true,
+    });
+
+    unselectCountries();
+
+    mapRef.current.setFeatureState(
+      {
+        source: source,
+        sourceLayer: sourceLayer,
+        id: feature.id,
+      },
+      { clicked: true }
+    );
+  }
+
   const handleMapClick = (event) => {
     const features = mapRef.current.queryRenderedFeatures(event.point, {
       layers: [source],
@@ -74,36 +115,7 @@ export default function Mapbox() {
 
     if (features.length > 0) {
       const feature = features[0];
-      const countryName = feature.properties.name_en || feature.properties.name;
-      const countryCode = feature.properties.iso_3166_1;
-
-      setBottomSheet({
-        id: feature.id,
-        longitude: event.lngLat.lng,
-        latitude: event.lngLat.lat,
-        country: countryName,
-        flagIcon: countryCode,
-        isOpened: true,
-        visited: feature.state.visited,
-        wishListed: feature.state.wishListed,
-      });
-
-      mapRef.current.flyTo({
-        center: [event.lngLat.lng, event.lngLat.lat],
-        zoom: 2,
-        essential: true,
-      });
-
-      unselectCountries();
-
-      mapRef.current.setFeatureState(
-        {
-          source: source,
-          sourceLayer: sourceLayer,
-          id: feature.id,
-        },
-        { clicked: true }
-      );
+      selectCountry(feature);
     }
   };
 
@@ -241,6 +253,10 @@ export default function Mapbox() {
         source={source}
         mapRef={mapRef.current}
         sourceLayer={sourceLayer}
+        onSelectCountry={(feature) => {
+          selectCountry(feature);
+          setSearchBottomSheet({ ...searchBottomSheet, isOpened: false });
+        }}
       />
     </>
   );
