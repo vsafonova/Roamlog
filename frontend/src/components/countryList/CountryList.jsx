@@ -3,15 +3,7 @@ import { FlagIcon, HeartIcon } from "@heroicons/react/20/solid";
 import CountryFlag from "../CountryFlag";
 import MarkCountryButton from "../MarkCountryButton";
 
-export default function CountryList({
-  onVisited,
-  onAddWishList,
-  removeVisited,
-  removeWishList,
-  mapRef,
-  source,
-  sourceLayer,
-}) {
+function getCountries(mapRef, source, sourceLayer) {
   const features = mapRef.querySourceFeatures(source, {
     sourceLayer: sourceLayer,
     filter: ["all", ["==", "disputed", "false"], ["==", "worldview", "all"]],
@@ -35,14 +27,32 @@ export default function CountryList({
     return 0;
   });
 
+  return sortedFeatures;
+}
+
+export default function CountryList({
+  onVisited,
+  onAddWishList,
+  removeVisited,
+  removeWishList,
+  mapRef,
+  source,
+  sourceLayer,
+}) {
+  const countries = getCountries(mapRef, source, sourceLayer);
   return (
     <div className="px-4">
       <li className="flex justify-between">
         <div className="flex flex-col gap-2">
-          {/* {countryCode && <CountryFlag countryCode={countryCode} />} */}
-          {sortedFeatures.map((feature) => {
+          {countries.map((feature) => {
             const countryName = feature.properties.name_en;
-            return <h3 key={countryName}>{countryName}</h3>;
+            const countryCode = feature.properties.iso_3166_1;
+            return (
+              <div key={countryName}>
+                <CountryFlag countryCode={countryCode} />
+                <h3>{countryName}</h3>
+              </div>
+            );
           })}
         </div>
         {/* <div className="flex gap-2">
