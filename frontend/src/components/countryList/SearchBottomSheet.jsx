@@ -2,6 +2,7 @@ import { Sheet } from "react-modal-sheet";
 import "../bottomSheet/customSheet.css";
 import CountryList from "./CountryList";
 import PropTypes from "prop-types";
+import SearchFilter from "./SearchFilter";
 
 export default function SearchBottomSheet({
   isOpen,
@@ -16,7 +17,8 @@ export default function SearchBottomSheet({
       <Sheet.Container>
         <Sheet.Header />
         <Sheet.Content>
-          <Sheet.Scroller draggableAt="bottom">
+          {/* <SearchFilter /> */}
+          <Sheet.Scroller draggableAt="bottom" style={{ marginTop: "2rem" }}>
             <CountryList
               source={source}
               mapRef={mapRef}

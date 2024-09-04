@@ -164,9 +164,9 @@ export default function Mapbox() {
       "fill-color": [
         "case",
         ["boolean", ["feature-state", "visited"], false],
-        "#ffA500",
+        "#FF9800",
         ["boolean", ["feature-state", "wishList"], false],
-        "#00FF00",
+        "#43A047",
         "rgba(0, 0, 0, 0)", // Transparent color when neither state is true
       ],
       "fill-opacity": 0.5,

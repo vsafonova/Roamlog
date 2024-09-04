@@ -19,6 +19,7 @@
     "@turf/turf": "^7.1.0",
     "@types/mapbox-gl": "^3.4.0",
     "axios": "^1.7.3",
+    "classnames": "^2.5.1",
     "country-flag-icons": "^1.5.13",
     "framer-motion": "^11.3.28",
     "mapbox-gl": "^3.6.0",

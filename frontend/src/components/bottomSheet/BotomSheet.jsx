@@ -41,12 +41,14 @@ export default function BottomSheet({
               <div className="flex flex-row gap-4">
                 <MarkCountryButton
                   onClick={visited ? removeVisited : onVisited}
+                  visited={visited}
                 >
                   <FlagIcon className="h-5 w-5" />
                   Visited
                 </MarkCountryButton>
                 <MarkCountryButton
                   onClick={wishListed ? removeWishList : onAddWishList}
+                  wishListed={wishListed}
                 >
                   <HeartIcon className="h-5 w-5" />
                   Want to visit
