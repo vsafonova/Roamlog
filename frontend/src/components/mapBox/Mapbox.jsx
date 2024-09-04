@@ -126,7 +126,7 @@ export default function Mapbox() {
         sourceLayer: sourceLayer,
         id: countryId,
       },
-      { visited: visited, wishList: wishListed }
+      { visited: visited, wishListed: wishListed }
     );
     setBottomSheet((bottomSheet) => ({ ...bottomSheet, visited, wishListed }));
   };
@@ -165,7 +165,7 @@ export default function Mapbox() {
         "case",
         ["boolean", ["feature-state", "visited"], false],
         "#FF9800",
-        ["boolean", ["feature-state", "wishList"], false],
+        ["boolean", ["feature-state", "wishListed"], false],
         "#43A047",
         "rgba(0, 0, 0, 0)", // Transparent color when neither state is true
       ],

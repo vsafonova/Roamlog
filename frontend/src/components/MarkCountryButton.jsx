@@ -7,9 +7,10 @@ export default function MarkCountryButton({
   onClick,
   visited,
   wishListed,
+  className,
 }) {
   const buttonClasses = classNames(
-    "flex items-center justify-center gap-2 rounded-full w-1/2 h-14 normal-case font-normal text-base",
+    `flex items-center justify-center gap-2 rounded-full ${className} normal-case font-normal text-base`,
     {
       "bg-orange-500 text-white": visited,
       "bg-green-600 text-white": wishListed,
@@ -28,4 +29,5 @@ MarkCountryButton.propTypes = {
   onClick: PropTypes.func.isRequired,
   visited: PropTypes.bool,
   wishListed: PropTypes.bool,
+  className: PropTypes.string,
 };

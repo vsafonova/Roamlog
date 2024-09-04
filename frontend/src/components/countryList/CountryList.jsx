@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
-// import { FlagIcon, HeartIcon } from "@heroicons/react/20/solid";
+import { FlagIcon, HeartIcon } from "@heroicons/react/20/solid";
 import CountryFlag from "../CountryFlag";
-// import MarkCountryButton from "../MarkCountryButton";
+import MarkCountryButton from "../MarkCountryButton";
 
 function getCountries(mapRef, source, sourceLayer) {
   const features = mapRef.querySourceFeatures(source, {
@@ -41,6 +41,7 @@ export default function CountryList({
   onSelectCountry,
 }) {
   const countries = getCountries(mapRef, source, sourceLayer);
+  console.log(countries);
   return (
     <ul className="px-4">
       {countries.map((feature) => {
@@ -48,17 +49,23 @@ export default function CountryList({
         const countryCode = feature.properties.iso_3166_1;
         return (
           <li
-            onClick={() => onSelectCountry(feature)}
             key={countryName}
-            className="flex justify-between cursor-pointer hover:bg-gray-100"
+            className="flex justify-between cursor-pointer hover:bg-gray-100 mb-2"
           >
-            <div className="flex items-center gap-4 p-2">
+            <div
+              onClick={() => onSelectCountry(feature)}
+              className="flex items-center gap-4 w-full"
+            >
               <CountryFlag countryCode={countryCode} />
               <h3>{countryName}</h3>
             </div>
             <div className="flex gap-2">
-              <button> Visited</button>
-              <button> WishList</button>
+              <MarkCountryButton className={"w-8 h-8 p-0"} visited={""}>
+                <FlagIcon className="h-4 w-4" />
+              </MarkCountryButton>
+              <MarkCountryButton className={"w-8 h-8 p-0"} wishListed={""}>
+                <HeartIcon className="h-4 w-4" />
+              </MarkCountryButton>
             </div>
           </li>
         );
