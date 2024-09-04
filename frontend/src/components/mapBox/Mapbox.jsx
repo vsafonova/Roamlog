@@ -185,7 +185,7 @@ export default function Mapbox() {
         "case",
         ["boolean", ["feature-state", "visited"], false],
         1, // Opacity when visited
-        ["boolean", ["feature-state", "wishList"], false],
+        ["boolean", ["feature-state", "wishListed"], false],
         1, // Opacity when on wish list
         ["boolean", ["feature-state", "clicked"], false],
         1, // Opacity when clicked
