@@ -4,12 +4,8 @@ import PropTypes from "prop-types";
 
 export default function Slide({ gif, text, altText }) {
   return (
-    <div className="relative h-dvh w-full">
-      <img
-        src={`/images/${gif}`}
-        alt={altText}
-        className="h-full w-full object-cover"
-      />
+    <div className="relative h-full w-full overscroll-y-none">
+      <img src={`/images/${gif}`} alt={altText} className="object-scale-down" />
       <div className="absolute top-1/2 inset-0 grid w-full place-items-center">
         <div className="mx-4 w-fit text-left">
           <Typography
