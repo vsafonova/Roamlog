@@ -50,7 +50,7 @@ const theme = {
         carousel: {
           position: "relative",
           width: "w-full",
-          height: "h-full",
+          height: "h-5/6",
           overflowX: "overflow-x-hidden",
           display: "flex",
         },
