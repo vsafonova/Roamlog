@@ -217,7 +217,7 @@ export default function Mapbox() {
         <Link to="/">
           <img
             src="/images/RoamlogLogo.jpg"
-            className="absolute h-24 right-0 mx-4"
+            className="absolute h-20 right-0 mr-4"
           />
         </Link>
 

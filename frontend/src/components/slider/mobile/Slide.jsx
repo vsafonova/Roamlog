@@ -6,16 +6,16 @@ export default function Slide({ gif, text, altText }) {
   return (
     <div className="relative h-full w-full overscroll-y-none">
       <img src={`/images/${gif}`} alt={altText} className="object-scale-down" />
-      <div className="absolute top-1/2 inset-0 grid w-full place-items-center">
-        <div className="mx-4 w-fit text-left">
+      <div className="absolute inset-0">
+        <div className="mx-4 h-5/6 flex flex-col justify-end items-start gap-2">
           <Typography
-            variant="h4"
+            variant="h1"
             color="white"
-            className="mb-8 text-3xl md:text-4xl lg:text-5xl"
+            className="text-3xl md:text-4xl lg:text-4xl"
           >
             {text}
           </Typography>
-          <div className="flex justify-center gap-2">
+          <div>
             {/* <Button
               className="rounded-full"
               size="lg"
