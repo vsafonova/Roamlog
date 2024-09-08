@@ -4,18 +4,18 @@ import PropTypes from "prop-types";
 
 export default function Slide({ gif, text, altText }) {
   return (
-    <div className="relative h-full w-full overscroll-y-none">
-      <img src={`/images/${gif}`} alt={altText} className="object-scale-down" />
-      <div className="absolute top-1/2 inset-0 grid w-full place-items-center">
-        <div className="mx-4 w-fit text-left">
+    <div className="relative h-full w-full">
+      <img src={`/images/${gif}`} alt={altText} className="w-full" />
+      <div className="absolute px-8 left-1/2 inset-0 grid place-items-center">
+        <div className="w-2/4 text-left md:w-2/4 mb-8">
           <Typography
             variant="h4"
             color="white"
-            className="mb-8 text-3xl md:text-4xl lg:text-5xl"
+            className="text-3xl md:text-4xl lg:text-5xl"
           >
             {text}
           </Typography>
-          <div className="flex justify-center gap-2">
+          <div className="flex justify-start gap-2 mt-4">
             {/* <Button
               className="rounded-full"
               size="lg"
