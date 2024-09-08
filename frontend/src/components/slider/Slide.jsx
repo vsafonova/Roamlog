@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 
 export default function Slide({ gif, text, altText }) {
   return (
-    <div className="relative h-full w-full">
+    <div className="relative h-dvh w-full">
       <img
         src={`/images/${gif}`}
         alt={altText}
