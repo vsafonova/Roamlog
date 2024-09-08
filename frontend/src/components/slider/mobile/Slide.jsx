@@ -6,8 +6,8 @@ export default function Slide({ gif, text, altText }) {
   return (
     <div className="relative h-full w-full overscroll-y-none">
       <img src={`/images/${gif}`} alt={altText} className="object-scale-down" />
-      <div className="absolute inset-0">
-        <div className="mx-6 h-5/6 flex flex-col justify-end items-start gap-2">
+      <div className="absolute inset-0 top-96 mt-4">
+        <div className="mx-6 flex flex-col justify-end items-start gap-2">
           <Typography
             variant="h1"
             color="white"
