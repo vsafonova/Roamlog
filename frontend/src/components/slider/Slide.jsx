@@ -8,28 +8,32 @@ export default function Slide({ gif, text, altText }) {
       <img
         src={`/images/${gif}`}
         alt={altText}
-        className="h-full w-full object-cover overflow-y-hidden"
+        className="h-full w-full object-cover"
       />
-      <div className="absolute inset-0 grid h-full w-full place-items-center">
-        <div className="mx-4 text-left">
+      <div className="absolute top-1/2 inset-0 grid w-full place-items-center">
+        <div className="mx-4 w-fit text-left">
           <Typography
             variant="h4"
             color="white"
-            className="mt-96 mb-8 text-3xl md:text-4xl lg:text-5xl"
+            className="mb-8 text-3xl md:text-4xl lg:text-5xl"
           >
             {text}
           </Typography>
-          <div className="flex justify-end gap-2">
-            <Button
+          <div className="flex justify-center gap-2">
+            {/* <Button
               className="rounded-full"
               size="lg"
               color="white"
               variant="text"
             >
               Log In
-            </Button>
+            </Button> */}
             <Link to="/UserMap">
-              <Button className="rounded-full" size="lg" color="white">
+              <Button
+                className="rounded-full normal-case"
+                size="lg"
+                color="white"
+              >
                 Get Started
               </Button>
             </Link>
