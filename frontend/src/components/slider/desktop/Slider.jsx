@@ -1,6 +1,7 @@
 import { Carousel, ThemeProvider } from "@material-tailwind/react";
 import Slide from "./Slide";
 import theme from "./theme";
+import NavBar from "./NavBar";
 
 export default function Slider() {
   let slides = [
@@ -25,7 +26,10 @@ export default function Slider() {
     <ThemeProvider value={theme}>
       <Carousel transition={{ duration: 1 }}>
         {slides.map(({ gif, text, altText }) => (
-          <Slide gif={gif} text={text} altText={altText} key={text} />
+          <div key={text}>
+            <NavBar />
+            <Slide gif={gif} text={text} altText={altText} />
+          </div>
         ))}
       </Carousel>
     </ThemeProvider>

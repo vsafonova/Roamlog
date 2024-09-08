@@ -8,7 +8,7 @@ const theme = {
           <button
             onClick={handlePrev}
             disabled={!loop && firstIndex}
-            className="!absolute top-2/4 left-4 -translate-y-2/4 rounded-full select-none transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none w-12 max-w-[48px] h-12 max-h-[48px] text-white hover:bg-white/10 active:bg-white/30 grid place-items-center"
+            className="!absolute top-1/2 left-4 rounded-full select-none transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none w-12 max-w-[48px] h-12 max-h-[48px] text-white hover:bg-white/10 active:bg-white/30 grid place-items-center"
           >
             <ChevronLeftIcon strokeWidth={3} className="-ml-1 h-7 w-7" />
           </button>
@@ -18,7 +18,7 @@ const theme = {
         <button
           onClick={handleNext}
           disabled={!loop && lastIndex}
-          className="!absolute top-2/4 right-4 -translate-y-2/4 rounded-full select-none transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none w-12 max-w-[48px] h-12 max-h-[48px] text-white hover:bg-white/10 active:bg-white/30 grid place-items-center"
+          className="!absolute top-1/2 right-4 rounded-full select-none transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none w-12 max-w-[48px] h-12 max-h-[48px] text-white hover:bg-white/10 active:bg-white/30 grid place-items-center"
         >
           <ChevronRightIcon strokeWidth={3} className="ml-1 h-7 w-7" />
         </button>

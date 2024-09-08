@@ -5,6 +5,7 @@ import BottomSheet from "../bottomSheet/BotomSheet";
 import AddCountryButton from "./AddCountryButton";
 import SearchBottomSheet from "../countryList/SearchBottomSheet";
 import * as turf from "@turf/turf";
+import { Link } from "react-router-dom";
 
 const MAPBOX_TOKEN =
   "pk.eyJ1IjoidmlrdG9yaWlhLWh5IiwiYSI6ImNsemlpM3JxODBhamEya3F5d2k5dGtwcDUifQ.70l4WJWTi7Sbp8iMaFvxLw"; // Set your mapbox token here
@@ -213,6 +214,13 @@ export default function Mapbox() {
       >
         <GeolocateControl position="bottom-left" />
         <AddCountryButton onClick={handleAddButtonClick} />
+        <Link to="/">
+          <img
+            src="/images/RoamlogLogo.jpg"
+            className="absolute h-24 right-0 mx-4"
+          />
+        </Link>
+
         <StyleLoadedGuard
           stylesLoaded={stylesLoaded}
           setStylesLoaded={setStylesLoaded}
