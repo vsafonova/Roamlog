@@ -216,8 +216,8 @@ export default function Mapbox() {
         <AddCountryButton onClick={handleAddButtonClick} />
         <Link to="/">
           <img
-            src="/images/RoamlogLogo.jpg"
-            className="absolute h-20 right-0 mr-4"
+            src="/images/LogoWhite.jpg"
+            className="absolute h-10 right-0 mr-2"
           />
         </Link>
 
