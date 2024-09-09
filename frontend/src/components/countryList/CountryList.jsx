@@ -68,10 +68,16 @@ export default function CountryList({
               <h3>{countryName}</h3>
             </div>
             <div className="flex gap-2">
-              <MarkCountryButton className={"w-8 h-8 p-0"} visited={""}>
+              <MarkCountryButton
+                className={"w-8 h-8 p-0"}
+                visited={feature.state.visited}
+              >
                 <FlagIcon className="h-4 w-4" />
               </MarkCountryButton>
-              <MarkCountryButton className={"w-8 h-8 p-0"} wishListed={""}>
+              <MarkCountryButton
+                className={"w-8 h-8 p-0"}
+                wishListed={feature.state.wishListed}
+              >
                 <HeartIcon className="h-4 w-4" />
               </MarkCountryButton>
             </div>
