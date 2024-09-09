@@ -49,7 +49,6 @@ export default function CountryList({
   onSelectCountry,
 }) {
   const countries = getCountries(mapRef, source, sourceLayer);
-  console.log(countries);
   return (
     <ul className="px-4">
       {countries.map((feature) => {

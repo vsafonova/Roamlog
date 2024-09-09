@@ -6,6 +6,7 @@ import AddCountryButton from "./AddCountryButton";
 import SearchBottomSheet from "../countryList/SearchBottomSheet";
 import * as turf from "@turf/turf";
 import { Link } from "react-router-dom";
+import { useCountriesState } from "../../hooks/useCountriesState";
 
 const MAPBOX_TOKEN =
   "pk.eyJ1IjoidmlrdG9yaWlhLWh5IiwiYSI6ImNsemlpM3JxODBhamEya3F5d2k5dGtwcDUifQ.70l4WJWTi7Sbp8iMaFvxLw"; // Set your mapbox token here
@@ -24,7 +25,16 @@ export default function Mapbox() {
     isOpened: false,
   });
 
+  const source = "country-boundaries";
+  const sourceLayer = "country_boundaries";
   const mapRef = useRef();
+  const { countries, updateCountryState } = useCountriesState(
+    mapRef.current,
+    source,
+    sourceLayer
+  );
+  console.log(countries);
+
   const [stylesLoaded, setStylesLoaded] = useState(false);
 
   const [mapHeight, setMapHeight] = useState({
@@ -44,9 +54,6 @@ export default function Mapbox() {
     window.addEventListener("resize", updateMapStyle);
     return () => window.removeEventListener("resize", updateMapStyle);
   }, []);
-
-  const source = "country-boundaries";
-  const sourceLayer = "country_boundaries";
 
   function unselectCountries() {
     mapRef.current
@@ -121,14 +128,7 @@ export default function Mapbox() {
   };
 
   const markCountry = (countryId, visited, wishListed) => {
-    mapRef.current.setFeatureState(
-      {
-        source: source,
-        sourceLayer: sourceLayer,
-        id: countryId,
-      },
-      { visited: visited, wishListed: wishListed }
-    );
+    updateCountryState(countryId, { visited, wishListed });
     setBottomSheet((bottomSheet) => ({ ...bottomSheet, visited, wishListed }));
   };
 
