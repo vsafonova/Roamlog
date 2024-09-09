@@ -836,21 +836,6 @@ video {
   margin-right: 1px;
 }
 
-.my-4 {
-  margin-top: 1rem;
-  margin-bottom: 1rem;
-}
-
-.mx-8 {
-  margin-left: 2rem;
-  margin-right: 2rem;
-}
-
-.mx-10 {
-  margin-left: 2.5rem;
-  margin-right: 2.5rem;
-}
-
 .-ml-1 {
   margin-left: -0.25rem;
 }
@@ -903,6 +888,10 @@ video {
   margin-right: 3rem;
 }
 
+.mr-2 {
+  margin-right: 0.5rem;
+}
+
 .mr-4 {
   margin-right: 1rem;
 }
@@ -925,10 +914,6 @@ video {
 
 .mt-px {
   margin-top: 1px;
-}
-
-.mr-2 {
-  margin-right: 0.5rem;
 }
 
 .box-border {
@@ -999,10 +984,6 @@ video {
   height: 5rem;
 }
 
-.h-24 {
-  height: 6rem;
-}
-
 .h-3 {
   height: 0.75rem;
 }
@@ -1039,6 +1020,10 @@ video {
   height: 2.25rem;
 }
 
+.h-96 {
+  height: 24rem;
+}
+
 .h-\[110px\] {
   height: 110px;
 }
@@ -1062,10 +1047,6 @@ video {
 
 .h-screen {
   height: 100vh;
-}
-
-.h-96 {
-  height: 24rem;
 }
 
 .max-h-96 {
@@ -1426,10 +1407,6 @@ video {
 
 .flex-row {
   flex-direction: row;
-}
-
-.flex-row-reverse {
-  flex-direction: row-reverse;
 }
 
 .flex-col {
@@ -2187,10 +2164,6 @@ video {
   background-image: linear-gradient(to top right, var(--tw-gradient-stops));
 }
 
-.bg-\[url\(\'\/images\/CinqueTerre\.jpg\'\)\] {
-  background-image: url('/images/CinqueTerre.jpg');
-}
-
 .from-amber-600 {
   --tw-gradient-from: #ffb300 var(--tw-gradient-from-position);
   --tw-gradient-to: rgb(255 179 0 / 0) var(--tw-gradient-to-position);
@@ -2395,10 +2368,6 @@ video {
   background-size: cover;
 }
 
-.bg-auto {
-  background-size: auto;
-}
-
 .bg-clip-border {
   background-clip: border-box;
 }
@@ -2410,14 +2379,6 @@ video {
 
 .bg-center {
   background-position: center;
-}
-
-.bg-top {
-  background-position: top;
-}
-
-.bg-bottom {
-  background-position: bottom;
 }
 
 .bg-no-repeat {
@@ -3076,11 +3037,6 @@ video {
 .text-yellow-900 {
   --tw-text-opacity: 1;
   color: rgb(245 127 23 / var(--tw-text-opacity));
-}
-
-.text-gray-200 {
-  --tw-text-opacity: 1;
-  color: rgb(238 238 238 / var(--tw-text-opacity));
 }
 
 .antialiased {

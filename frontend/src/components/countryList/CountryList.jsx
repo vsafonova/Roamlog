@@ -27,7 +27,15 @@ function getCountries(mapRef, source, sourceLayer) {
     return 0;
   });
 
-  return sortedFeatures;
+  return sortedFeatures.map((feature) => {
+    const state = mapRef.getFeatureState({
+      source: source,
+      sourceLayer: sourceLayer,
+      id: feature.id,
+    });
+    feature.state = state;
+    return feature;
+  });
 }
 
 export default function CountryList({

@@ -93,7 +93,7 @@ export default function Mapbox() {
 
     mapRef.current.flyTo({
       center: [center.lng, center.lat],
-      zoom: 4,
+      zoom: 3,
       essential: true,
     });
 
@@ -241,7 +241,6 @@ export default function Mapbox() {
         removeVisited={() => markAsNotVisited(bottomSheet.id)}
         removeWishList={() => removeFromWishList(bottomSheet.id)}
         onClose={() => {
-          console.log("Close button clicked");
           setBottomSheet({ ...bottomSheet, isOpened: false });
           unselectCountries();
         }}
