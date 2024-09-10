@@ -3,7 +3,7 @@ import { useCallback, useEffect, useState } from "react";
 function getCountries(mapRef, source, sourceLayer) {
   const features = mapRef.querySourceFeatures(source, {
     sourceLayer: sourceLayer,
-    filter: ["all", ["==", "disputed", "false"], ["==", "worldview", "all"]],
+    filter: ["all", ["==", "disputed", "false"]], //, ["==", "worldview", "all"]],
   });
 
   const uniqueFeatures = Array.from(

@@ -33,7 +33,6 @@ export default function Mapbox() {
     source,
     sourceLayer
   );
-  console.log(countries);
 
   const [stylesLoaded, setStylesLoaded] = useState(false);
 
@@ -257,13 +256,15 @@ export default function Mapbox() {
         onClose={() => {
           setSearchBottomSheet({ ...searchBottomSheet, isOpened: false });
         }}
-        source={source}
-        mapRef={mapRef.current}
-        sourceLayer={sourceLayer}
         onSelectCountry={(feature) => {
           selectCountry(feature);
           setSearchBottomSheet({ ...searchBottomSheet, isOpened: false });
         }}
+        countriesState={countries}
+        onAddWishList={addToWishList}
+        onVisited={markAsVisited}
+        removeVisited={markAsNotVisited}
+        removeWishList={removeFromWishList}
       />
     </>
   );
