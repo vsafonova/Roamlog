@@ -2,28 +2,30 @@ import { Sheet } from "react-modal-sheet";
 import "../bottomSheet/customSheet.css";
 import CountryList from "./CountryList";
 import PropTypes from "prop-types";
-import SearchFilter from "./SearchFilter";
 
 export default function SearchBottomSheet({
   isOpen,
   onClose,
-  source,
-  mapRef,
-  sourceLayer,
   onSelectCountry,
+  countriesState,
+  onVisited,
+  onAddWishList,
+  removeVisited,
+  removeWishList,
 }) {
   return (
     <Sheet isOpen={isOpen} onClose={onClose}>
       <Sheet.Container>
         <Sheet.Header />
         <Sheet.Content>
-          {/* <SearchFilter /> */}
           <Sheet.Scroller draggableAt="bottom" style={{ marginTop: "2rem" }}>
             <CountryList
-              source={source}
-              mapRef={mapRef}
-              sourceLayer={sourceLayer}
               onSelectCountry={onSelectCountry}
+              countriesState={countriesState}
+              onVisited={onVisited}
+              onAddWishList={onAddWishList}
+              removeVisited={removeVisited}
+              removeWishList={removeWishList}
             />
           </Sheet.Scroller>
         </Sheet.Content>
@@ -36,8 +38,10 @@ export default function SearchBottomSheet({
 SearchBottomSheet.propTypes = {
   isOpen: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
-  source: PropTypes.string.isRequired,
-  mapRef: PropTypes.object,
-  sourceLayer: PropTypes.string.isRequired,
   onSelectCountry: PropTypes.func.isRequired,
+  countriesState: PropTypes.object.isRequired,
+  onVisited: PropTypes.func.isRequired,
+  onAddWishList: PropTypes.func.isRequired,
+  removeVisited: PropTypes.func.isRequired,
+  removeWishList: PropTypes.func.isRequired,
 };

@@ -6,6 +6,7 @@ import AddCountryButton from "./AddCountryButton";
 import SearchBottomSheet from "../countryList/SearchBottomSheet";
 import * as turf from "@turf/turf";
 import { Link } from "react-router-dom";
+import { useCountriesState } from "../../hooks/useCountriesState";
 
 const MAPBOX_TOKEN =
   "pk.eyJ1IjoidmlrdG9yaWlhLWh5IiwiYSI6ImNsemlpM3JxODBhamEya3F5d2k5dGtwcDUifQ.70l4WJWTi7Sbp8iMaFvxLw"; // Set your mapbox token here
@@ -24,7 +25,15 @@ export default function Mapbox() {
     isOpened: false,
   });
 
+  const source = "country-boundaries";
+  const sourceLayer = "country_boundaries";
   const mapRef = useRef();
+  const { countries, updateCountryState } = useCountriesState(
+    mapRef.current,
+    source,
+    sourceLayer
+  );
+
   const [stylesLoaded, setStylesLoaded] = useState(false);
 
   const [mapHeight, setMapHeight] = useState({
@@ -44,9 +53,6 @@ export default function Mapbox() {
     window.addEventListener("resize", updateMapStyle);
     return () => window.removeEventListener("resize", updateMapStyle);
   }, []);
-
-  const source = "country-boundaries";
-  const sourceLayer = "country_boundaries";
 
   function unselectCountries() {
     mapRef.current
@@ -93,7 +99,7 @@ export default function Mapbox() {
 
     mapRef.current.flyTo({
       center: [center.lng, center.lat],
-      zoom: 4,
+      zoom: 3,
       essential: true,
     });
 
@@ -121,14 +127,7 @@ export default function Mapbox() {
   };
 
   const markCountry = (countryId, visited, wishListed) => {
-    mapRef.current.setFeatureState(
-      {
-        source: source,
-        sourceLayer: sourceLayer,
-        id: countryId,
-      },
-      { visited: visited, wishListed: wishListed }
-    );
+    updateCountryState(countryId, { visited, wishListed });
     setBottomSheet((bottomSheet) => ({ ...bottomSheet, visited, wishListed }));
   };
 
@@ -241,7 +240,6 @@ export default function Mapbox() {
         removeVisited={() => markAsNotVisited(bottomSheet.id)}
         removeWishList={() => removeFromWishList(bottomSheet.id)}
         onClose={() => {
-          console.log("Close button clicked");
           setBottomSheet({ ...bottomSheet, isOpened: false });
           unselectCountries();
         }}
@@ -258,13 +256,15 @@ export default function Mapbox() {
         onClose={() => {
           setSearchBottomSheet({ ...searchBottomSheet, isOpened: false });
         }}
-        source={source}
-        mapRef={mapRef.current}
-        sourceLayer={sourceLayer}
         onSelectCountry={(feature) => {
           selectCountry(feature);
           setSearchBottomSheet({ ...searchBottomSheet, isOpened: false });
         }}
+        countriesState={countries}
+        onAddWishList={addToWishList}
+        onVisited={markAsVisited}
+        removeVisited={markAsNotVisited}
+        removeWishList={removeFromWishList}
       />
     </>
   );

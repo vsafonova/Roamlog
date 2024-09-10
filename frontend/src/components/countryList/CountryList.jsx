@@ -3,19 +3,10 @@ import { FlagIcon, HeartIcon } from "@heroicons/react/20/solid";
 import CountryFlag from "../CountryFlag";
 import MarkCountryButton from "../MarkCountryButton";
 
-function getCountries(mapRef, source, sourceLayer) {
-  const features = mapRef.querySourceFeatures(source, {
-    sourceLayer: sourceLayer,
-    filter: ["all", ["==", "disputed", "false"], ["==", "worldview", "all"]],
-  });
+function getCountries(countriesState) {
+  const countries = Object.values(countriesState);
 
-  const uniqueFeatures = Array.from(
-    new Map(
-      features.map((feature) => [feature.properties.name_en, feature])
-    ).values()
-  );
-
-  const sortedFeatures = uniqueFeatures.sort((a, b) => {
+  const sortedCountries = countries.sort((a, b) => {
     const nameA = a.properties.name_en.toUpperCase();
     const nameB = b.properties.name_en.toUpperCase();
     if (nameA < nameB) {
@@ -27,21 +18,18 @@ function getCountries(mapRef, source, sourceLayer) {
     return 0;
   });
 
-  return sortedFeatures;
+  return sortedCountries;
 }
 
 export default function CountryList({
-  // onVisited,
-  // onAddWishList,
-  // removeVisited,
-  // removeWishList,
-  mapRef,
-  source,
-  sourceLayer,
+  onVisited,
+  onAddWishList,
+  removeVisited,
+  removeWishList,
+  countriesState,
   onSelectCountry,
 }) {
-  const countries = getCountries(mapRef, source, sourceLayer);
-  console.log(countries);
+  const countries = getCountries(countriesState);
   return (
     <ul className="px-4">
       {countries.map((feature) => {
@@ -60,10 +48,30 @@ export default function CountryList({
               <h3>{countryName}</h3>
             </div>
             <div className="flex gap-2">
-              <MarkCountryButton className={"w-8 h-8 p-0"} visited={""}>
+              <MarkCountryButton
+                className={"w-8 h-8 p-0"}
+                visited={feature.state.visited}
+                onClick={() => {
+                  if (feature.state.visited) {
+                    removeVisited(feature.id);
+                  } else {
+                    onVisited(feature.id);
+                  }
+                }}
+              >
                 <FlagIcon className="h-4 w-4" />
               </MarkCountryButton>
-              <MarkCountryButton className={"w-8 h-8 p-0"} wishListed={""}>
+              <MarkCountryButton
+                className={"w-8 h-8 p-0"}
+                wishListed={feature.state.wishListed}
+                onClick={() => {
+                  if (feature.state.wishListed) {
+                    removeWishList(feature.id);
+                  } else {
+                    onAddWishList(feature.id);
+                  }
+                }}
+              >
                 <HeartIcon className="h-4 w-4" />
               </MarkCountryButton>
             </div>
@@ -75,14 +83,10 @@ export default function CountryList({
 }
 
 CountryList.propTypes = {
-  // onVisited: PropTypes.func.isRequired,
-  // onAddWishList: PropTypes.func.isRequired,
-  // visited: PropTypes.bool,
-  // wishListed: PropTypes.bool,
-  // removeVisited: PropTypes.func.isRequired,
-  // removeWishList: PropTypes.func.isRequired,
-  mapRef: PropTypes.object,
-  source: PropTypes.string.isRequired,
-  sourceLayer: PropTypes.string.isRequired,
+  onVisited: PropTypes.func.isRequired,
+  onAddWishList: PropTypes.func.isRequired,
+  removeVisited: PropTypes.func.isRequired,
+  removeWishList: PropTypes.func.isRequired,
+  countriesState: PropTypes.object.isRequired,
   onSelectCountry: PropTypes.func.isRequired,
 };
