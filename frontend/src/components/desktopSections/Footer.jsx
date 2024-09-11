@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { Button } from "@material-tailwind/react";
-import SocialMedia from "./SocialMedia";
+import SocialMedia from "../SocialMedia";
 
 export default function Footer() {
   return (
