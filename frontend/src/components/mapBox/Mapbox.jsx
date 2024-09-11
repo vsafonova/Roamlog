@@ -99,7 +99,7 @@ export default function Mapbox() {
 
     mapRef.current.flyTo({
       center: [center.lng, center.lat],
-      zoom: 3,
+      zoom: 4,
       essential: true,
     });
 
@@ -208,16 +208,16 @@ export default function Mapbox() {
         interactiveLayerIds={["country-boundaries"]}
         onClick={handleMapClick}
         ref={mapRef}
-        logoPosition="bottom-right"
+        logoPosition="top-right"
         attributionControl={false}
       >
-        <GeolocateControl position="bottom-left" />
         <AddCountryButton onClick={handleAddButtonClick} />
+        <GeolocateControl
+          position="bottom-right"
+          style={{ borderRadius: "100%", bottom: "2rem", left: "2rem" }}
+        />
         <Link to="/">
-          <img
-            src="/images/LogoWhite.jpg"
-            className="absolute h-10 right-0 mr-2"
-          />
+          <img src="/images/LogoWhite.jpg" className="absolute h-10 left-2" />
         </Link>
 
         <StyleLoadedGuard

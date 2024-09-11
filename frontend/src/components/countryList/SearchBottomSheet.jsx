@@ -2,6 +2,7 @@ import { Sheet } from "react-modal-sheet";
 import "../bottomSheet/customSheet.css";
 import CountryList from "./CountryList";
 import PropTypes from "prop-types";
+import { FlagIcon, HeartIcon } from "@heroicons/react/20/solid";
 
 export default function SearchBottomSheet({
   isOpen,
@@ -18,7 +19,17 @@ export default function SearchBottomSheet({
       <Sheet.Container>
         <Sheet.Header />
         <Sheet.Content>
-          <Sheet.Scroller draggableAt="bottom" style={{ marginTop: "2rem" }}>
+          <div className="flex justify-center gap-10 text-gray-600 text-xs font-semibold bg-gray-100 py-2">
+            <div className="flex items-center gap-2">
+              <FlagIcon className="h-4 w-4" />
+              <div>VISITED</div>
+            </div>
+            <div className="flex items-center gap-2">
+              <HeartIcon className="h-4 w-4" />
+              <div>WANT TO VISIT</div>
+            </div>
+          </div>
+          <Sheet.Scroller draggableAt="bottom" style={{ marginTop: "0.5rem" }}>
             <CountryList
               onSelectCountry={onSelectCountry}
               countriesState={countriesState}

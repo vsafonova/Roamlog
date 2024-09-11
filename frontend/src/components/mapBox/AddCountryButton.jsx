@@ -5,7 +5,7 @@ export default function AddCountryButton({ onClick }) {
   return (
     <button
       onClick={onClick}
-      className="absolute bottom-10 bg-indigo-500 rounded left-2.5 mb-2"
+      className="absolute bottom-0 bg-indigo-500 left-2 mb-2 rounded-full w-10 h-10 flex justify-center items-center"
     >
       <PlusIcon className="h-7 w-7 text-white" />
     </button>
