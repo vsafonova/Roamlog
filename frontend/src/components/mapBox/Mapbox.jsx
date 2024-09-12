@@ -7,11 +7,13 @@ import CountryListModalSheet from "../countryList/CountryListModalSheet";
 import * as turf from "@turf/turf";
 import { Link } from "react-router-dom";
 import { useCountriesState } from "../../hooks/useCountriesState";
+import UserPageFooter from "../UserPageFooter";
 
 const MAPBOX_TOKEN =
   "pk.eyJ1IjoidmlrdG9yaWlhLWh5IiwiYSI6ImNsemlpM3JxODBhamEya3F5d2k5dGtwcDUifQ.70l4WJWTi7Sbp8iMaFvxLw"; // Set your mapbox token here
 
 export default function Mapbox() {
+  const [stylesLoaded, setStylesLoaded] = useState(false);
   const [countryModalSheet, setCountryModalSheet] = useState({
     isOpened: false,
     longitude: 0,
@@ -33,8 +35,6 @@ export default function Mapbox() {
     source,
     sourceLayer
   );
-
-  const [stylesLoaded, setStylesLoaded] = useState(false);
 
   function unselectCountries() {
     mapRef.current
@@ -181,83 +181,86 @@ export default function Mapbox() {
   };
 
   return (
-    <section>
-      <Map
-        initialViewState={{
-          latitude: 46,
-          longitude: 17,
-          zoom: 1,
-        }}
-        style={{ width: "100dvw", height: "90dvh" }}
-        mapStyle="mapbox://styles/mapbox/streets-v9"
-        mapboxAccessToken={MAPBOX_TOKEN}
-        interactiveLayerIds={["country-boundaries"]}
-        onClick={handleMapClick}
-        ref={mapRef}
-        logoPosition="top-right"
-        attributionControl={false}
-      >
-        <AddCountryButton onClick={handleAddButtonClick} />
-        <GeolocateControl
-          position="bottom-right"
-          style={{ borderRadius: "100%", bottom: "2rem", left: "2rem" }}
-        />
-        <Link to="/">
-          <img src="/images/LogoWhite.jpg" className="absolute h-10 left-2" />
-        </Link>
-
-        <StyleLoadedGuard
-          stylesLoaded={stylesLoaded}
-          setStylesLoaded={setStylesLoaded}
+    <>
+      <section>
+        <Map
+          initialViewState={{
+            latitude: 46,
+            longitude: 17,
+            zoom: 1,
+          }}
+          style={{ width: "100dvw", height: "90dvh" }}
+          mapStyle="mapbox://styles/mapbox/streets-v9"
+          mapboxAccessToken={MAPBOX_TOKEN}
+          interactiveLayerIds={["country-boundaries"]}
+          onClick={handleMapClick}
+          ref={mapRef}
+          logoPosition="top-right"
+          attributionControl={false}
         >
-          <Source
-            id={source}
-            type="vector"
-            url="mapbox://mapbox.country-boundaries-v1"
+          <AddCountryButton onClick={handleAddButtonClick} />
+          <GeolocateControl
+            position="bottom-right"
+            style={{ borderRadius: "100%", bottom: "2rem", left: "2rem" }}
+          />
+          <Link to="/">
+            <img src="/images/LogoWhite.jpg" className="absolute h-10 left-2" />
+          </Link>
+
+          <StyleLoadedGuard
+            stylesLoaded={stylesLoaded}
+            setStylesLoaded={setStylesLoaded}
           >
-            <Layer {...countryLayer} />
-            <Layer {...borderLayer} />
-          </Source>
-        </StyleLoadedGuard>
-      </Map>
-      <CountryModalSheet
-        onVisited={() => markAsVisited(countryModalSheet.id)}
-        onAddWishList={() => addToWishList(countryModalSheet.id)}
-        removeVisited={() => markAsNotVisited(countryModalSheet.id)}
-        removeWishList={() => removeFromWishList(countryModalSheet.id)}
-        onClose={() => {
-          setCountryModalSheet({ ...countryModalSheet, isOpened: false });
-          unselectCountries();
-        }}
-        isOpen={countryModalSheet.isOpened}
-        longitude={countryModalSheet.longitude}
-        latitude={countryModalSheet.latitude}
-        country={countryModalSheet.country}
-        countryCode={countryModalSheet.flagIcon}
-        visited={countryModalSheet.visited}
-        wishListed={countryModalSheet.wishListed}
-      />
-      <CountryListModalSheet
-        isOpen={countryListModalSheet.isOpened}
-        onClose={() => {
-          setCountryListModalSheet({
-            ...countryListModalSheet,
-            isOpened: false,
-          });
-        }}
-        onSelectCountry={(feature) => {
-          selectCountry(feature);
-          setCountryListModalSheet({
-            ...countryListModalSheet,
-            isOpened: false,
-          });
-        }}
-        countriesState={countries}
-        onAddWishList={addToWishList}
-        onVisited={markAsVisited}
-        removeVisited={markAsNotVisited}
-        removeWishList={removeFromWishList}
-      />
-    </section>
+            <Source
+              id={source}
+              type="vector"
+              url="mapbox://mapbox.country-boundaries-v1"
+            >
+              <Layer {...countryLayer} />
+              <Layer {...borderLayer} />
+            </Source>
+          </StyleLoadedGuard>
+        </Map>
+        <CountryModalSheet
+          onVisited={() => markAsVisited(countryModalSheet.id)}
+          onAddWishList={() => addToWishList(countryModalSheet.id)}
+          removeVisited={() => markAsNotVisited(countryModalSheet.id)}
+          removeWishList={() => removeFromWishList(countryModalSheet.id)}
+          onClose={() => {
+            setCountryModalSheet({ ...countryModalSheet, isOpened: false });
+            unselectCountries();
+          }}
+          isOpen={countryModalSheet.isOpened}
+          longitude={countryModalSheet.longitude}
+          latitude={countryModalSheet.latitude}
+          country={countryModalSheet.country}
+          countryCode={countryModalSheet.flagIcon}
+          visited={countryModalSheet.visited}
+          wishListed={countryModalSheet.wishListed}
+        />
+        <CountryListModalSheet
+          isOpen={countryListModalSheet.isOpened}
+          onClose={() => {
+            setCountryListModalSheet({
+              ...countryListModalSheet,
+              isOpened: false,
+            });
+          }}
+          onSelectCountry={(feature) => {
+            selectCountry(feature);
+            setCountryListModalSheet({
+              ...countryListModalSheet,
+              isOpened: false,
+            });
+          }}
+          countriesState={countries}
+          onAddWishList={addToWishList}
+          onVisited={markAsVisited}
+          removeVisited={markAsNotVisited}
+          removeWishList={removeFromWishList}
+        />
+      </section>
+      <UserPageFooter />
+    </>
   );
 }

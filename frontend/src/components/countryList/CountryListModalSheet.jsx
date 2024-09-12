@@ -1,5 +1,5 @@
 import { Sheet } from "react-modal-sheet";
-import "../countryModalSheet/customSheet.css";
+import "../countryModalSheet/customModalSheet.css";
 import CountryList from "./CountryList";
 import PropTypes from "prop-types";
 import { FlagIcon, HeartIcon } from "@heroicons/react/20/solid";

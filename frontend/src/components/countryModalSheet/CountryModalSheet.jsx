@@ -3,7 +3,7 @@ import { Sheet } from "react-modal-sheet";
 import CountryFlag from "../CountryFlag";
 import PropTypes from "prop-types";
 import MarkCountryButton from "../MarkCountryButton";
-import "./customSheet.css";
+import "./customModalSheet.css";
 import CloseButton from "./CloseButton";
 
 export default function CountryModalSheet({

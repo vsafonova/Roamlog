@@ -4,6 +4,7 @@ import UserPage from "./pages/UserPage";
 import Mapbox from "./components/mapBox/Mapbox";
 import HomePage from "./pages/Desktop/HomePage";
 import useMediaQuery from "./hooks/useMediaQuery";
+import StatsMap from "./components/statsMap/StatsMap";
 
 export default function App() {
   const isMobile = useMediaQuery("(max-width: 768px)");
@@ -14,6 +15,7 @@ export default function App() {
         <Route path="/" element={isMobile ? <StartPage /> : <HomePage />} />
         <Route path="/UserMap" element={<UserPage />} />
         <Route path="/Map" element={<Mapbox />} />
+        <Route path="/Stats" element={<StatsMap />} />
       </Routes>
     </Router>
   );
