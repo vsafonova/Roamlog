@@ -1,5 +1,5 @@
-import HomePageSection from "../../components/desktopSections/HomePageSection";
-import Footer from "../../components/desktopSections/Footer";
+import HomePageSection from "../../components/homePageSections/HomePageSection";
+import Footer from "../../components/homePageSections/Footer";
 import Slider from "../../components/slider/desktop/Slider";
 
 export default function HomePage() {

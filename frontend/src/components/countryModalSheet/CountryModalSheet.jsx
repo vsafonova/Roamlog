@@ -6,7 +6,7 @@ import MarkCountryButton from "../MarkCountryButton";
 import "./customSheet.css";
 import CloseButton from "./CloseButton";
 
-export default function BottomSheet({
+export default function CountryModalSheet({
   isOpen,
   onClose,
   longitude,
@@ -65,7 +65,7 @@ export default function BottomSheet({
   );
 }
 
-BottomSheet.propTypes = {
+CountryModalSheet.propTypes = {
   isOpen: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
   longitude: PropTypes.number.isRequired,

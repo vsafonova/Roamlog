@@ -1,10 +1,10 @@
 import { Sheet } from "react-modal-sheet";
-import "../bottomSheet/customSheet.css";
+import "../countryModalSheet/customSheet.css";
 import CountryList from "./CountryList";
 import PropTypes from "prop-types";
 import { FlagIcon, HeartIcon } from "@heroicons/react/20/solid";
 
-export default function SearchBottomSheet({
+export default function CountryListModalSheet({
   isOpen,
   onClose,
   onSelectCountry,
@@ -46,7 +46,7 @@ export default function SearchBottomSheet({
   );
 }
 
-SearchBottomSheet.propTypes = {
+CountryListModalSheet.propTypes = {
   isOpen: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
   onSelectCountry: PropTypes.func.isRequired,

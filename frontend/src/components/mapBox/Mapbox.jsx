@@ -1,9 +1,9 @@
 import Map, { Layer, Source, GeolocateControl } from "react-map-gl";
 import StyleLoadedGuard from "./StyleLoadedGuard";
-import { useState, useRef, useEffect } from "react";
-import BottomSheet from "../bottomSheet/BotomSheet";
+import { useState, useRef } from "react";
+import CountryModalSheet from "../countryModalSheet/CountryModalSheet";
 import AddCountryButton from "./AddCountryButton";
-import SearchBottomSheet from "../countryList/SearchBottomSheet";
+import CountryListModalSheet from "../countryList/CountryListModalSheet";
 import * as turf from "@turf/turf";
 import { Link } from "react-router-dom";
 import { useCountriesState } from "../../hooks/useCountriesState";
@@ -12,7 +12,7 @@ const MAPBOX_TOKEN =
   "pk.eyJ1IjoidmlrdG9yaWlhLWh5IiwiYSI6ImNsemlpM3JxODBhamEya3F5d2k5dGtwcDUifQ.70l4WJWTi7Sbp8iMaFvxLw"; // Set your mapbox token here
 
 export default function Mapbox() {
-  const [bottomSheet, setBottomSheet] = useState({
+  const [countryModalSheet, setCountryModalSheet] = useState({
     isOpened: false,
     longitude: 0,
     latitude: 0,
@@ -21,7 +21,7 @@ export default function Mapbox() {
     visited: false,
     wishListed: false,
   });
-  const [searchBottomSheet, setSearchBottomSheet] = useState({
+  const [countryListModalSheet, setCountryListModalSheet] = useState({
     isOpened: false,
   });
 
@@ -35,24 +35,6 @@ export default function Mapbox() {
   );
 
   const [stylesLoaded, setStylesLoaded] = useState(false);
-
-  const [mapHeight, setMapHeight] = useState({
-    height: "100vh",
-    width: "100vw",
-  });
-  const updateMapStyle = () => {
-    if (window.innerWidth <= 768) {
-      setMapHeight({ height: "86vh", width: "100vw" });
-    } else {
-      setMapHeight({ height: "100vh", width: "100vw" });
-    }
-  };
-
-  useEffect(() => {
-    updateMapStyle();
-    window.addEventListener("resize", updateMapStyle);
-    return () => window.removeEventListener("resize", updateMapStyle);
-  }, []);
 
   function unselectCountries() {
     mapRef.current
@@ -72,7 +54,7 @@ export default function Mapbox() {
   }
 
   const handleAddButtonClick = () => {
-    setSearchBottomSheet({ isOpened: true });
+    setCountryListModalSheet({ isOpened: true });
   };
 
   function getCountryCenter(feature) {
@@ -86,7 +68,7 @@ export default function Mapbox() {
     const countryName = feature.properties.name_en || feature.properties.name;
     const countryCode = feature.properties.iso_3166_1;
 
-    setBottomSheet({
+    setCountryModalSheet({
       id: feature.id,
       longitude: center.lng,
       latitude: center.lat,
@@ -128,7 +110,11 @@ export default function Mapbox() {
 
   const markCountry = (countryId, visited, wishListed) => {
     updateCountryState(countryId, { visited, wishListed });
-    setBottomSheet((bottomSheet) => ({ ...bottomSheet, visited, wishListed }));
+    setCountryModalSheet((countryModalSheet) => ({
+      ...countryModalSheet,
+      visited,
+      wishListed,
+    }));
   };
 
   const setVisited = (countryId, visited) => {
@@ -195,14 +181,14 @@ export default function Mapbox() {
   };
 
   return (
-    <>
+    <section>
       <Map
         initialViewState={{
           latitude: 46,
           longitude: 17,
           zoom: 1,
         }}
-        style={{ width: "100dvw", height: "100dvh" }}
+        style={{ width: "100dvw", height: "90dvh" }}
         mapStyle="mapbox://styles/mapbox/streets-v9"
         mapboxAccessToken={MAPBOX_TOKEN}
         interactiveLayerIds={["country-boundaries"]}
@@ -234,31 +220,37 @@ export default function Mapbox() {
           </Source>
         </StyleLoadedGuard>
       </Map>
-      <BottomSheet
-        onVisited={() => markAsVisited(bottomSheet.id)}
-        onAddWishList={() => addToWishList(bottomSheet.id)}
-        removeVisited={() => markAsNotVisited(bottomSheet.id)}
-        removeWishList={() => removeFromWishList(bottomSheet.id)}
+      <CountryModalSheet
+        onVisited={() => markAsVisited(countryModalSheet.id)}
+        onAddWishList={() => addToWishList(countryModalSheet.id)}
+        removeVisited={() => markAsNotVisited(countryModalSheet.id)}
+        removeWishList={() => removeFromWishList(countryModalSheet.id)}
         onClose={() => {
-          setBottomSheet({ ...bottomSheet, isOpened: false });
+          setCountryModalSheet({ ...countryModalSheet, isOpened: false });
           unselectCountries();
         }}
-        isOpen={bottomSheet.isOpened}
-        longitude={bottomSheet.longitude}
-        latitude={bottomSheet.latitude}
-        country={bottomSheet.country}
-        countryCode={bottomSheet.flagIcon}
-        visited={bottomSheet.visited}
-        wishListed={bottomSheet.wishListed}
+        isOpen={countryModalSheet.isOpened}
+        longitude={countryModalSheet.longitude}
+        latitude={countryModalSheet.latitude}
+        country={countryModalSheet.country}
+        countryCode={countryModalSheet.flagIcon}
+        visited={countryModalSheet.visited}
+        wishListed={countryModalSheet.wishListed}
       />
-      <SearchBottomSheet
-        isOpen={searchBottomSheet.isOpened}
+      <CountryListModalSheet
+        isOpen={countryListModalSheet.isOpened}
         onClose={() => {
-          setSearchBottomSheet({ ...searchBottomSheet, isOpened: false });
+          setCountryListModalSheet({
+            ...countryListModalSheet,
+            isOpened: false,
+          });
         }}
         onSelectCountry={(feature) => {
           selectCountry(feature);
-          setSearchBottomSheet({ ...searchBottomSheet, isOpened: false });
+          setCountryListModalSheet({
+            ...countryListModalSheet,
+            isOpened: false,
+          });
         }}
         countriesState={countries}
         onAddWishList={addToWishList}
@@ -266,6 +258,6 @@ export default function Mapbox() {
         removeVisited={markAsNotVisited}
         removeWishList={removeFromWishList}
       />
-    </>
+    </section>
   );
 }
