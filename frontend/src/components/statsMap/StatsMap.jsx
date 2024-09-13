@@ -1,6 +1,6 @@
 import Map, { Layer, Source } from "react-map-gl";
 import StyleLoadedGuard from "../mapBox/StyleLoadedGuard";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import Stats from "../stats/Stats";
 import UserPageFooter from "../UserPageFooter";
@@ -30,6 +30,24 @@ export default function StatsMap() {
     },
   };
 
+  const [mapHeight, setMapHeight] = useState({
+    height: "",
+    width: "",
+  });
+  const updateMapStyle = () => {
+    if (window.innerWidth <= 768) {
+      setMapHeight({ height: "46dvh", width: "100dvw" });
+    } else {
+      setMapHeight({ height: "40dvh", width: "100dvw" });
+    }
+  };
+
+  useEffect(() => {
+    updateMapStyle();
+    window.addEventListener("resize", updateMapStyle);
+    return () => window.removeEventListener("resize", updateMapStyle);
+  }, []);
+
   return (
     <>
       <section>
@@ -39,7 +57,7 @@ export default function StatsMap() {
             longitude: 17,
             zoom: -0.5,
           }}
-          style={{ width: "100dvw", height: "46dvh" }}
+          style={mapHeight}
           mapStyle="mapbox://styles/mapbox/streets-v9"
           mapboxAccessToken={MAPBOX_TOKEN}
           logoPosition="top-right"
