@@ -31,8 +31,8 @@ export default function StatsMap() {
   };
 
   const [mapHeight, setMapHeight] = useState({
-    height: "",
-    width: "",
+    height: "40dvh",
+    width: "100dvw",
   });
   const updateMapStyle = () => {
     if (window.innerWidth <= 768) {

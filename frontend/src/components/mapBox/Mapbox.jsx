@@ -181,8 +181,8 @@ export default function Mapbox() {
   };
 
   const [mapHeight, setMapHeight] = useState({
-    height: "",
-    width: "",
+    height: "90dvh",
+    width: "100dvw",
   });
   const updateMapStyle = () => {
     if (window.innerWidth <= 768) {
