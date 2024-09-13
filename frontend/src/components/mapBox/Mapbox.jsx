@@ -189,7 +189,7 @@ export default function Mapbox() {
             longitude: 17,
             zoom: 1,
           }}
-          style={{ width: "100dvw", height: "92dvh" }}
+          style={{ width: "100dvw", height: "91dvh" }}
           mapStyle="mapbox://styles/mapbox/streets-v9"
           mapboxAccessToken={MAPBOX_TOKEN}
           interactiveLayerIds={["country-boundaries"]}
