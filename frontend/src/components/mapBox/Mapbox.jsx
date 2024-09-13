@@ -1,6 +1,6 @@
 import Map, { Layer, Source, GeolocateControl } from "react-map-gl";
 import StyleLoadedGuard from "./StyleLoadedGuard";
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef } from "react";
 import CountryModalSheet from "../countryModalSheet/CountryModalSheet";
 import AddCountryButton from "./AddCountryButton";
 import CountryListModalSheet from "../countryList/CountryListModalSheet";
@@ -153,7 +153,7 @@ export default function Mapbox() {
         "#FF9800",
         ["boolean", ["feature-state", "wishListed"], false],
         "#43A047",
-        "rgba(0, 0, 0, 0)", // Transparent color when neither state is true
+        "rgba(0, 0, 0, 0)",
       ],
       "fill-opacity": 0.5,
     },
@@ -170,12 +170,12 @@ export default function Mapbox() {
       "line-opacity": [
         "case",
         ["boolean", ["feature-state", "visited"], false],
-        1, // Opacity when visited
+        1,
         ["boolean", ["feature-state", "wishListed"], false],
-        1, // Opacity when on wish list
+        1,
         ["boolean", ["feature-state", "clicked"], false],
-        1, // Opacity when clicked
-        0, // No opacity when not clicked
+        1,
+        0,
       ],
     },
   };

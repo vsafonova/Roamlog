@@ -26,10 +26,23 @@ export function useCountriesState(mapRef, source, sourceLayer) {
       const defaultCountriesState = {};
       const features = getCountries(mapRef, source, sourceLayer);
       features.forEach((feature) => {
-        feature.state = {
-          visited: false,
-          wishListed: false,
-        };
+        const storedState = JSON.parse(localStorage.getItem(feature.id));
+        if (storedState) {
+          feature.state = storedState;
+          mapRef.setFeatureState(
+            {
+              source: source,
+              sourceLayer: sourceLayer,
+              id: feature.id,
+            },
+            storedState
+          );
+        } else {
+          feature.state = {
+            visited: false,
+            wishListed: false,
+          };
+        }
         defaultCountriesState[feature.id] = feature;
         setCountries(defaultCountriesState);
       });
@@ -38,6 +51,7 @@ export function useCountriesState(mapRef, source, sourceLayer) {
 
   const updateCountryState = useCallback(
     (id, state) => {
+      localStorage.setItem(id, JSON.stringify(state));
       setCountries((prevCountries) => {
         const updatedCountries = { ...prevCountries };
         const updatedCountry = updatedCountries[id];
