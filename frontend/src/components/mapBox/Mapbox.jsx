@@ -194,7 +194,6 @@ export default function Mapbox() {
           ref={mapRef}
           logoPosition="top-right"
           attributionControl={false}
-          dragRotate={false}
         >
           <AddCountryButton onClick={handleAddButtonClick} />
           <GeolocateControl
