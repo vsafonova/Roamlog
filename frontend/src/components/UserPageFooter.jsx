@@ -5,7 +5,7 @@ export default function UserPageFooter() {
   return (
     <footer className="bg-indigo-500 text-white p-2">
       <nav className="flex justify-start items-center">
-        <div className="mr-72">
+        <div>
           <Link to="/">
             <img src="/images/LogoWhite.jpg" className="h-10" />
           </Link>
