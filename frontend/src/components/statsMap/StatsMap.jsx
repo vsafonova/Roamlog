@@ -39,7 +39,7 @@ export default function StatsMap() {
             longitude: 17,
             zoom: -0.5,
           }}
-          style={{ width: "100dvw", height: "45dvh" }}
+          style={{ width: "100dvw", height: "46dvh" }}
           mapStyle="mapbox://styles/mapbox/streets-v9"
           mapboxAccessToken={MAPBOX_TOKEN}
           logoPosition="top-right"
