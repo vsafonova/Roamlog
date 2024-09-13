@@ -5,12 +5,9 @@ import CountryModalSheet from "../countryModalSheet/CountryModalSheet";
 import AddCountryButton from "./AddCountryButton";
 import CountryListModalSheet from "../countryList/CountryListModalSheet";
 import * as turf from "@turf/turf";
-import { Link } from "react-router-dom";
 import { useCountriesState } from "../../hooks/useCountriesState";
 import UserPageFooter from "../UserPageFooter";
-
-const MAPBOX_TOKEN =
-  "pk.eyJ1IjoidmlrdG9yaWlhLWh5IiwiYSI6ImNsemlpM3JxODBhamEya3F5d2k5dGtwcDUifQ.70l4WJWTi7Sbp8iMaFvxLw"; // Set your mapbox token here
+const MAPBOX_TOKEN = import.meta.env.VITE_MAPBOX_TOKEN;
 
 export default function Mapbox() {
   const [stylesLoaded, setStylesLoaded] = useState(false);
@@ -197,16 +194,14 @@ export default function Mapbox() {
           ref={mapRef}
           logoPosition="top-right"
           attributionControl={false}
+          dragRotate={false}
+          touchZoomRotate={false}
         >
           <AddCountryButton onClick={handleAddButtonClick} />
           <GeolocateControl
             position="bottom-right"
             style={{ borderRadius: "100%", bottom: "2rem", left: "2rem" }}
           />
-          <Link to="/">
-            <img src="/images/LogoWhite.jpg" className="absolute h-10 left-2" />
-          </Link>
-
           <StyleLoadedGuard
             stylesLoaded={stylesLoaded}
             setStylesLoaded={setStylesLoaded}

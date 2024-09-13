@@ -1,12 +1,9 @@
 import Map, { Layer, Source } from "react-map-gl";
 import StyleLoadedGuard from "../mapBox/StyleLoadedGuard";
 import { useState } from "react";
-import { Link } from "react-router-dom";
 import Stats from "../stats/Stats";
 import UserPageFooter from "../UserPageFooter";
-
-const MAPBOX_TOKEN =
-  "pk.eyJ1IjoidmlrdG9yaWlhLWh5IiwiYSI6ImNsemlpM3JxODBhamEya3F5d2k5dGtwcDUifQ.70l4WJWTi7Sbp8iMaFvxLw";
+const MAPBOX_TOKEN = import.meta.env.VITE_MAPBOX_TOKEN;
 
 export default function StatsMap() {
   const [stylesLoaded, setStylesLoaded] = useState(false);
@@ -44,10 +41,10 @@ export default function StatsMap() {
           mapboxAccessToken={MAPBOX_TOKEN}
           logoPosition="top-right"
           attributionControl={false}
+          dragRotate={false}
+          touchZoomRotate={false}
+          scrollZoom={false}
         >
-          <Link to="/">
-            <img src="/images/LogoWhite.jpg" className="absolute h-10 left-2" />
-          </Link>
           <StyleLoadedGuard
             stylesLoaded={stylesLoaded}
             setStylesLoaded={setStylesLoaded}
