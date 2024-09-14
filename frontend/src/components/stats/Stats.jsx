@@ -1,7 +1,6 @@
 import { FlagIcon, HeartIcon, Squares2X2Icon } from "@heroicons/react/20/solid";
 import { useCountriesState } from "../../hooks/useCountriesState";
 import PropTypes from "prop-types";
-import { useState } from "react";
 import classNames from "classnames";
 
 function Button({ children, onClick, isActive }) {
@@ -25,13 +24,17 @@ Button.propTypes = {
   isActive: PropTypes.bool.isRequired,
 };
 
-export default function Stats({ mapRef, source, sourceLayer }) {
+export default function Stats({
+  mapRef,
+  source,
+  sourceLayer,
+  showVisited,
+  setShowVisited,
+}) {
   const { countries } = useCountriesState(mapRef.current, source, sourceLayer);
   const countryList = Object.values(countries);
   const regions = countryList.map((country) => country.properties.region);
   const uniqueRegions = [...new Set(regions)];
-
-  const [showVisited, setShowVisited] = useState(true);
 
   const visitedCountries = countryList.filter(
     (country) => country.state.visited
@@ -115,4 +118,6 @@ Stats.propTypes = {
   mapRef: PropTypes.object.isRequired,
   source: PropTypes.string.isRequired,
   sourceLayer: PropTypes.string.isRequired,
+  setShowVisited: PropTypes.func.isRequired,
+  showVisited: PropTypes.bool.isRequired,
 };

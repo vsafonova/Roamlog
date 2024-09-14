@@ -7,24 +7,24 @@ const MAPBOX_TOKEN = import.meta.env.VITE_MAPBOX_TOKEN;
 
 export default function StatsMap() {
   const [stylesLoaded, setStylesLoaded] = useState(false);
+  const [showVisited, setShowVisited] = useState(true);
   const mapRef = useRef();
   const source = "country-boundaries";
   const sourceLayer = "country_boundaries";
 
+  const visitedFilter = ["boolean", ["feature-state", "visited"], false];
+  const wishListedFilter = ["boolean", ["feature-state", "wishListed"], false];
+  const visitedColor = "#FF9800";
+  const wishListedColor = "#43A047";
+  const color = showVisited ? visitedColor : wishListedColor;
+  const filter = showVisited ? visitedFilter : wishListedFilter;
   const countryLayer = {
     id: "country-boundaries",
     type: "fill",
     source: source,
     "source-layer": sourceLayer,
     paint: {
-      "fill-color": [
-        "case",
-        ["boolean", ["feature-state", "visited"], false],
-        "#FF9800",
-        ["boolean", ["feature-state", "wishListed"], false],
-        "#43A047",
-        "rgba(0, 0, 0, 0)",
-      ],
+      "fill-color": ["case", filter, color, "rgba(0, 0, 0, 0)"],
     },
   };
 
@@ -61,7 +61,13 @@ export default function StatsMap() {
           </StyleLoadedGuard>
         </Map>
       </section>
-      <Stats mapRef={mapRef} source={source} sourceLayer={sourceLayer} />
+      <Stats
+        mapRef={mapRef}
+        source={source}
+        sourceLayer={sourceLayer}
+        setShowVisited={setShowVisited}
+        showVisited={showVisited}
+      />
       <UserPageFooter />
     </>
   );
