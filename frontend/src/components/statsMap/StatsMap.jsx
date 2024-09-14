@@ -1,12 +1,13 @@
 import Map, { Layer, Source } from "react-map-gl";
 import StyleLoadedGuard from "../mapBox/StyleLoadedGuard";
-import { useState } from "react";
+import { useState, useRef } from "react";
 import Stats from "../stats/Stats";
 import UserPageFooter from "../UserPageFooter";
 const MAPBOX_TOKEN = import.meta.env.VITE_MAPBOX_TOKEN;
 
 export default function StatsMap() {
   const [stylesLoaded, setStylesLoaded] = useState(false);
+  const mapRef = useRef();
   const source = "country-boundaries";
   const sourceLayer = "country_boundaries";
 
@@ -44,6 +45,7 @@ export default function StatsMap() {
           dragRotate={false}
           touchZoomRotate={false}
           scrollZoom={false}
+          ref={mapRef}
         >
           <StyleLoadedGuard
             stylesLoaded={stylesLoaded}
@@ -59,7 +61,7 @@ export default function StatsMap() {
           </StyleLoadedGuard>
         </Map>
       </section>
-      <Stats />
+      <Stats mapRef={mapRef} source={source} sourceLayer={sourceLayer} />
       <UserPageFooter />
     </>
   );
