@@ -2,7 +2,6 @@ import Map, { Layer, Source } from "react-map-gl";
 import StyleLoadedGuard from "../mapBox/StyleLoadedGuard";
 import { useState, useRef } from "react";
 import Stats from "../stats/Stats";
-import UserPageFooter from "../UserPageFooter";
 const MAPBOX_TOKEN = import.meta.env.VITE_MAPBOX_TOKEN;
 
 export default function StatsMap() {
@@ -37,7 +36,7 @@ export default function StatsMap() {
             longitude: 17,
             zoom: -1,
           }}
-          style={{ width: "100dvw", height: "46dvh" }}
+          style={{ width: "100dvw", height: "35dvh" }}
           mapStyle="mapbox://styles/mapbox/streets-v9"
           mapboxAccessToken={MAPBOX_TOKEN}
           logoPosition="top-right"
@@ -68,7 +67,6 @@ export default function StatsMap() {
         setShowVisited={setShowVisited}
         showVisited={showVisited}
       />
-      <UserPageFooter />
     </>
   );
 }
