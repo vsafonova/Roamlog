@@ -34,7 +34,7 @@ export default function StatsMap() {
           initialViewState={{
             latitude: 46,
             longitude: 17,
-            zoom: -1,
+            zoom: 0,
           }}
           style={{ width: "100dvw", height: "35dvh" }}
           mapStyle="mapbox://styles/mapbox/streets-v9"
