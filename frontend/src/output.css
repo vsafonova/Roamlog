@@ -829,16 +829,6 @@ video {
   margin-right: 1px;
 }
 
-.my-4 {
-  margin-top: 1rem;
-  margin-bottom: 1rem;
-}
-
-.my-2 {
-  margin-top: 0.5rem;
-  margin-bottom: 0.5rem;
-}
-
 .-ml-1 {
   margin-left: -0.25rem;
 }
@@ -997,10 +987,6 @@ video {
 
 .h-3\.5 {
   height: 0.875rem;
-}
-
-.h-32 {
-  height: 8rem;
 }
 
 .h-4 {
@@ -1600,10 +1586,6 @@ video {
 
 .\!overflow-visible {
   overflow: visible !important;
-}
-
-.overflow-y-auto {
-  overflow-y: auto;
 }
 
 .overflow-x-hidden {
@@ -2587,10 +2569,6 @@ video {
 
 .pt-px {
   padding-top: 1px;
-}
-
-.pb-3 {
-  padding-bottom: 0.75rem;
 }
 
 .text-left {

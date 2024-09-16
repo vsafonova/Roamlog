@@ -9,7 +9,7 @@ export default function HomePage() {
       <HomePageSection
         vectorImage="Map.svg"
         heading="Mark the countries you've been"
-        paragraph="Create your own scratch map in seconds added over 18k countries"
+        paragraph="Create your own scratch map in seconds added over 18k countries and territories"
         image="Screen.png"
         alt="Phone screen with map and colored countries on it"
         justifyContent="justify-center"
@@ -31,8 +31,8 @@ export default function HomePage() {
         vectorImage="Cup.svg"
         heading="Track your travels"
         paragraph="Track your travel stats"
-        image=""
-        alt=""
+        image="StatsScreen.png"
+        alt="Phone screen with map and colored countries on it and stats"
         justifyContent={"justify-center"}
       />
       <Footer />
