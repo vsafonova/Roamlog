@@ -7,6 +7,7 @@ const MAPBOX_TOKEN = import.meta.env.VITE_MAPBOX_TOKEN;
 export default function StatsMap() {
   const [stylesLoaded, setStylesLoaded] = useState(false);
   const [showVisited, setShowVisited] = useState(true);
+
   const mapRef = useRef();
   const source = "country-boundaries";
   const sourceLayer = "country_boundaries";
@@ -17,6 +18,7 @@ export default function StatsMap() {
   const wishListedColor = "#43A047";
   const color = showVisited ? visitedColor : wishListedColor;
   const filter = showVisited ? visitedFilter : wishListedFilter;
+
   const countryLayer = {
     id: "country-boundaries",
     type: "fill",

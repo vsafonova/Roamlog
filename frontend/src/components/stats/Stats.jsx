@@ -38,11 +38,9 @@ export default function Stats({
   const countryList = Object.values(countries);
   const regions = countryList.map((country) => country.properties.region);
   const uniqueRegions = [...new Set(regions)];
-
   const visitedCountries = countryList.filter(
     (country) => country.state.visited
   ).length;
-
   const visitedPercentage = Math.round((visitedCountries / 195) * 100);
 
   return (
