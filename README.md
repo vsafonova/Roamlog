@@ -1,15 +1,15 @@
 # Roamlog
 
-It's a react-based travel tracker web application that allows users to track the countries they have visited. Users can add new countries to their visited list, view statistics about their travels, and maintain a wish list of countries they would like to visit.
+It's a react-based travel tracker web application that allows users to track the countries they have visited. Users can add new countries to their visited list, view travel statistics, and maintain a wish list of countries they want to visit.
 
 ## Project Brief
 
-Independently run an industry-relevant project from start to the end that showcases your skills and competences as a Frontend Developer
+Independently run an industry-relevant project from start to end that showcases your skills and competencies as a Frontend Developer
 
 ## Current Features
 
 - Interactive world map using Mapbox (react-map-gl)
-- Mark countries as visited or add to wishlist
+- Mark countries as visited or add to the wishlist
 - Country search and list view
 - Basic stats page with visualizations
 - Local storage for data persistence
@@ -29,7 +29,7 @@ Independently run an industry-relevant project from start to the end that showca
 - Migrate to Next.js for better performance and SEO
 - Implement TypeScript for improved type safety and developer experience
 - Utilize React Context to manage global state and reduce prop drilling
-- Increase use of custom hooks for better code organization and reusability
+- Increase the use of custom hooks for better code organization and reusability
 - Develop a backend for user authentication and cross-device data syncing
 
 ### Code Quality
