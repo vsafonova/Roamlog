@@ -81,3 +81,5 @@ To set up this project locally, follow the steps below:
    ```bash
    npm run dev
    ```
+
+4. **Open web site locally**
