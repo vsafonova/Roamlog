@@ -55,7 +55,7 @@ This project is a work in progress and serves as a learning platform for advance
 
 ## Third-party libraries:
 
-- react-map-gl - a suite of React components for Mapbox GL JS-compatible libraries.: [react-map-gl](https://visgl.github.io/react-map-gl)
+- react-map-gl - a suite of React components for Mapbox GL JS-compatible libraries: [react-map-gl](https://visgl.github.io/react-map-gl)
 - Material Tailwind - the Tailwind CSS Components Library: [Material Tailwind](https://www.material-tailwind.com/)
 
 ## Project Setup Instructions:
